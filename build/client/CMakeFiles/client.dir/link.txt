@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/client.dir/main.cpp.o CMakeFiles/client.dir/Client.cpp.o CMakeFiles/client.dir/__/include/SharedMemory.cpp.o -o client  -lpthread -lrt 

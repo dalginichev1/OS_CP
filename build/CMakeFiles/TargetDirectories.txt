@@ -1,0 +1,8 @@
+/home/daalginichev/OS_CP/build/CMakeFiles/edit_cache.dir
+/home/daalginichev/OS_CP/build/CMakeFiles/rebuild_cache.dir
+/home/daalginichev/OS_CP/build/server/CMakeFiles/server.dir
+/home/daalginichev/OS_CP/build/server/CMakeFiles/edit_cache.dir
+/home/daalginichev/OS_CP/build/server/CMakeFiles/rebuild_cache.dir
+/home/daalginichev/OS_CP/build/client/CMakeFiles/client.dir
+/home/daalginichev/OS_CP/build/client/CMakeFiles/edit_cache.dir
+/home/daalginichev/OS_CP/build/client/CMakeFiles/rebuild_cache.dir
