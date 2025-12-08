@@ -231,7 +231,7 @@ bool Server::parse_ship_placement(const std::string& payload, uint8_t& size,
         return false;
     }
     
-    if (s < 2 || s > 5) return false;
+    if (s < 1 || s > 4) return false;
     if (x_pos < 0 || x_pos >= BOARD_SIZE) return false;
     if (y_pos < 0 || y_pos >= BOARD_SIZE) return false;
     if (orientation != 'H' && orientation != 'V') return false;
@@ -584,8 +584,8 @@ void Server::handle_message(const Message &m) {
             // Инструкции по расстановке
             std::string instructions = "SHIP_PLACEMENT:\n"
                 "Разместите корабли: place размер,x,y,ориентация(H/V)\n"
-                "Корабли: 1x5, 2x4, 3x3, 4x2\n"
-                "Пример: place 5,0,0,H\n"
+                "Корабли: 1x4, 2x3, 3x2, 4x1\n"
+                "Пример: place 4,0,0,H\n"
                 "Когда готовы: ready";
             
             send_response_to(m.from, instructions.c_str());
@@ -656,7 +656,7 @@ void Server::handle_message(const Message &m) {
             }
             
             if (s < 1 || s > 4) {
-                send_response_to(m.from, "SHIP_ERROR:Size must be 2-5");
+                send_response_to(m.from, "SHIP_ERROR:Size must be 1-4");
                 break;
             }
             
