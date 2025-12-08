@@ -34,4 +34,5 @@ private:
     void show_game_menu();
     void place_ships_interactive();
     void show_game_status();
+    void clear_response_buffer();
 };

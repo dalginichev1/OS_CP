@@ -9,7 +9,7 @@
 #include <iomanip>
 
 Client::Client() : shm(false), root(shm.root()), current_game_id(-1), 
-                   in_game(false), in_setup(false), pending_invite_id(-1), setup_show_menu(false) {
+                   in_game(false), in_setup(false), pending_invite_id(-1) {
     if (!root) throw std::runtime_error("Cannot open shared memory; run server first");
 }
 
@@ -181,24 +181,6 @@ void Client::handle_game_response(const std::string& response) {
                 current_game_id = std::stoi(id_str);
             }
         }
-        
-        // Показываем инструкции по расстановке
-        std::cout << "\n" << std::string(50, '=') << "\n";
-        std::cout << "  РАССТАНОВКА КОРАБЛЕЙ\n";
-        std::cout << std::string(50, '=') << "\n";
-        std::cout << "  Формат: размер,x,y,ориентация(H/V)\n";
-        std::cout << "  Пример: 5,0,0,H\n\n";
-        std::cout << "  Корабли для размещения:\n";
-        std::cout << "    1 авианосец (5 клеток)\n";
-        std::cout << "    2 линкора (4 клетки)\n";
-        std::cout << "    3 крейсера (3 клетки)\n";
-        std::cout << "    4 эсминца (2 клетки)\n";
-        std::cout << std::string(50, '-') << "\n";
-        std::cout << "  Команды:\n";
-        std::cout << "    ready - готов к игре\n";
-        std::cout << "    board - посмотреть поле\n";
-        std::cout << "    menu - выйти в меню\n";
-        std::cout << std::string(50, '-') << "\n";
     }
     else if (response.find("INVITE_SENT") == 0) {
         std::cout << "\n✅ " << response.substr(12) << "\n";
@@ -273,6 +255,17 @@ void Client::show_game_menu() {
     std::cout << "  6 - Выйти в меню\n";
     std::cout << std::string(40, '-') << "\n";
     std::cout << "  Выберите действие: ";
+}
+
+void Client::clear_response_buffer() {
+    pthread_mutex_lock(&root->mutex);
+    ClientSlot* slot = my_slot();
+    if (slot && slot->has_response) {
+        std::cout << "[DEBUG] Clearing old response: " << slot->response << std::endl;
+        slot->has_response = false;
+        std::memset(slot->response, 0, RESP_MAX);
+    }
+    pthread_mutex_unlock(&root->mutex);
 }
 
 void Client::run() {
@@ -454,15 +447,16 @@ void Client::run() {
             // В режиме игры
             if (in_setup) {
                 // Проверяем, не получили ли мы асинхронно инструкции по расстановке
-                if (!setup_show_menu) {
+                if (!check_for_async_messages()) {
                     // Если нет асинхронных сообщений, показываем меню расстановки
                     place_ships_interactive();
-                    setup_show_menu = true;
                 }
-                
+
                 std::cout << "\n⚓ Команда: ";
                 std::string command;
                 std::getline(std::cin, command);
+
+                clear_response_buffer();
                 
                 std::string cmd_lower = command;
                 std::transform(cmd_lower.begin(), cmd_lower.end(), cmd_lower.begin(), ::tolower);
