@@ -6,7 +6,6 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <thread>
 #include <vector>
 
 Client::Client()
@@ -14,6 +13,50 @@ Client::Client()
       pending_invite_id(-1), rng(std::random_device{}()) { // Инициализация генератора
     if (!root)
         throw std::runtime_error("Cannot open shared memory; run server first");
+}
+
+void Client::force_check_state() {
+    // Проверяем наше текущее состояние
+    if (current_game_id != -1) {
+        std::cout << "🔄 Проверяем состояние игры...\n";
+
+        // Отправляем запрос статуса игры
+        Message m;
+        std::memset(&m, 0, sizeof(m));
+        std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);
+        m.type = MSG_GAME_STATUS;
+
+        clear_response_buffer();
+
+        if (enqueue_message(m)) {
+            std::string resp;
+            if (wait_for_response(resp, 2000)) {
+                if (resp.find("ERROR") != std::string::npos ||
+                    resp.find("GAME_REMOVED") != std::string::npos ||
+                    resp.find("Not in a game") != std::string::npos) {
+                    // Игра не существует
+                    std::cout << "⚠️ Игра не найдена, сбрасываем состояние\n";
+                    in_game = false;
+                    in_setup = false;
+                    current_game_id = -1;
+
+                    // Также сбрасываем на сервере
+                    ClientSlot* slot = my_slot();
+                    if (slot) {
+                        slot->current_game_id = -1;
+                        slot->setup_complete = false;
+                    }
+                } else {
+                    std::cout << "✅ Игра существует: " << resp.substr(0, 50) << "...\n";
+                }
+            } else {
+                std::cout << "❌ Нет ответа от сервера, сбрасываем состояние\n";
+                in_game = false;
+                in_setup = false;
+                current_game_id = -1;
+            }
+        }
+    }
 }
 
 bool Client::is_valid_position(uint8_t x, uint8_t y, uint8_t size, bool horizontal,
@@ -183,7 +226,7 @@ void Client::auto_place_ships() {
             std::cout << "❌ Нет ответа от сервера\n";
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        usleep(100 * 1000);
     }
 
     std::cout << "\n" << std::string(50, '-') << "\n";
@@ -261,7 +304,7 @@ bool Client::wait_for_response(std::string& out, int timeout_ms) {
 
         if (!slot) {
             pthread_mutex_unlock(&root->mutex);
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            usleep(100 * 1000);
             continue;
         }
 
@@ -274,7 +317,7 @@ bool Client::wait_for_response(std::string& out, int timeout_ms) {
         }
 
         pthread_mutex_unlock(&root->mutex);
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        usleep(100 * 1000);
     }
 
     return false;
@@ -290,6 +333,42 @@ bool Client::check_for_async_messages() {
 }
 
 void Client::handle_game_response(const std::string& response) {
+    if (response.find("GAME_REMOVED:") == 0) {
+        std::cout << "\n🗑️ " << response.substr(13) << "\n";
+        // Сбрасываем состояние клиента
+        in_game = false;
+        in_setup = false;
+        current_game_id = -1;
+        pending_invite_game_name.clear();
+        pending_invite_from.clear();
+        pending_invite_id = -1;
+
+        // Также сбрасываем состояние на сервере
+        ClientSlot* slot = my_slot();
+        if (slot) {
+            slot->current_game_id = -1;
+            slot->setup_complete = false;
+        }
+    } else if (response.find("GAME_CREATED:") == 0) {
+        std::cout << "\n✅ " << response.substr(13) << "\n";
+        // Устанавливаем, что мы в игре
+        in_game = true;
+        in_setup = true;
+
+        // Извлекаем ID игры из ответа
+        size_t id_pos = response.find("ID:");
+        if (id_pos != std::string::npos) {
+            std::string id_str = response.substr(id_pos + 3);
+            // Удаляем все нецифровые символы
+            id_str.erase(std::remove_if(id_str.begin(), id_str.end(),
+                                        [](char c) { return !std::isdigit(c); }),
+                         id_str.end());
+            if (!id_str.empty()) {
+                current_game_id = std::stoi(id_str);
+            }
+        }
+    }
+
     if (response.find("INVITE_FROM:") == 0) {
         std::string invite_str = response.substr(12);
 
@@ -358,6 +437,12 @@ void Client::handle_game_response(const std::string& response) {
             in_game = true;
             in_setup = true;
         }
+    } else if (response.find("LEFT_GAME:") == 0) {
+        std::cout << "\n🚪 " << response.substr(10) << "\n";
+        // Важно: сбрасываем состояние только здесь, после подтверждения от сервера
+        in_game = false;
+        in_setup = false;
+        current_game_id = -1;
     } else if (response.find("GAME_CREATED") == 0) {
         std::cout << "\n✅ " << response.substr(13) << "\n";
         in_game = true;
@@ -500,6 +585,13 @@ void Client::run() {
 
     while (running) {
         // Проверяем асинхронные сообщения
+        static int check_counter = 0;
+        check_counter++;
+        if (check_counter >= 10 && current_game_id != -1) { // Проверяем каждые 10 итераций
+            force_check_state();
+            check_counter = 0;
+        }
+
         check_for_async_messages();
 
         if (!in_game) {
@@ -616,6 +708,8 @@ void Client::run() {
                     }
                 }
             } else if (line == "5") {
+                force_check_state();
+
                 std::cout << "\n🚪 Вы уверены? (да/нет): ";
                 std::string confirm;
                 std::getline(std::cin, confirm);
@@ -803,6 +897,9 @@ void Client::run() {
                         }
                     }
                 } else if (line == "5") {
+
+                    force_check_state();
+
                     std::cout << "\n🏳️ Вы уверены? (да/нет): ";
                     std::string confirm;
                     std::getline(std::cin, confirm);
@@ -841,21 +938,28 @@ void Client::run() {
                         Message m;
                         std::memset(&m, 0, sizeof(m));
                         std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);
-                        m.type = MSG_SURRENDER;
-                        enqueue_message(m);
+                        m.type = MSG_LEAVE_GAME;
 
-                        in_game = false;
-                        in_setup = false;
-                        current_game_id = -1;
-                        std::cout << "\n🏳️ Вы вышли из игры\n";
+                        clear_response_buffer();
+
+                        if (!enqueue_message(m)) {
+                            std::cout << "\n❌ Очередь переполнена\n";
+                        } else {
+                            std::string resp;
+                            if (wait_for_response(resp, 3000)) {
+                                handle_game_response(resp);
+                            } else {
+                                std::cout
+                                    << "❌ Нет ответа от сервера, сбрасываем состояние локально\n";
+                                in_game = false;
+                                in_setup = false;
+                                current_game_id = -1;
+                            }
+                        }
                     }
-                } else {
-                    std::cout << "\n❌ Неверная команда\n";
                 }
             }
         }
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
     std::cout << "\n" << std::string(50, '=') << "\n";

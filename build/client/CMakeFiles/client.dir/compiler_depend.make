@@ -67,7 +67,6 @@ client/CMakeFiles/client.dir/Client.cpp.o: /home/daalginichev/OS_CP/client/Clien
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
-  /usr/include/c++/13/bits/std_thread.h \
   /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
@@ -86,9 +85,7 @@ client/CMakeFiles/client.dir/Client.cpp.o: /home/daalginichev/OS_CP/client/Clien
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
-  /usr/include/c++/13/bits/this_thread_sleep.h \
   /usr/include/c++/13/bits/uniform_int_dist.h \
-  /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -137,7 +134,6 @@ client/CMakeFiles/client.dir/Client.cpp.o: /home/daalginichev/OS_CP/client/Clien
   /usr/include/c++/13/string \
   /usr/include/c++/13/string_view \
   /usr/include/c++/13/system_error \
-  /usr/include/c++/13/thread \
   /usr/include/c++/13/tr1/bessel_function.tcc \
   /usr/include/c++/13/tr1/beta_function.tcc \
   /usr/include/c++/13/tr1/ell_integral.tcc \
@@ -874,9 +870,7 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_statx.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
+/usr/include/c++/13/pstl/pstl_config.h:
 
 /usr/include/c++/13/pstl/glue_algorithm_defs.h:
 
@@ -922,6 +916,8 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/c++/13/ctime:
 
+/usr/include/c++/13/cstring:
+
 /usr/include/c++/13/cstdio:
 
 /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
@@ -948,6 +944,8 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/x86_64-linux-gnu/bits/stdint-least.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
+
 /usr/include/c++/13/bits/vector.tcc:
 
 /usr/include/c++/13/bits/stl_function.h:
@@ -964,17 +962,7 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
-/usr/include/c++/13/cstring:
-
-/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
-
-/usr/include/c++/13/bits/unique_ptr.h:
-
 /usr/include/c++/13/bits/stringfwd.h:
-
-/usr/include/c++/13/bits/this_thread_sleep.h:
-
-/usr/include/wchar.h:
 
 /usr/include/c++/13/bits/new_allocator.h:
 
@@ -984,9 +972,9 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/c++/13/bits/stl_numeric.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
+/usr/include/c++/13/pstl/glue_numeric_defs.h:
 
-/usr/include/asm-generic/errno.h:
+/home/daalginichev/OS_CP/client/Client.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
 
@@ -1025,6 +1013,10 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 /usr/include/c++/13/bits/string_view.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+
+/usr/include/c++/13/random:
+
+/usr/include/c++/13/bits/random.tcc:
 
 /usr/include/c++/13/iomanip:
 
@@ -1102,19 +1094,9 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/c++/13/bits/exception_ptr.h:
 
-/usr/include/c++/13/pstl/glue_numeric_defs.h:
-
-/home/daalginichev/OS_CP/client/Client.hpp:
-
-/usr/include/c++/13/bits/random.tcc:
-
-/usr/include/c++/13/random:
-
 /usr/include/c++/13/algorithm:
 
 /usr/include/asm-generic/int-ll64.h:
-
-/usr/include/c++/13/thread:
 
 /usr/include/c++/13/bits/istream.tcc:
 
@@ -1160,10 +1142,6 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/c++/13/bits/exception.h:
 
-/usr/include/c++/13/bits/memory_resource.h:
-
-/usr/include/c++/13/streambuf:
-
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
 /usr/include/c++/13/bits/functional_hash.h:
@@ -1196,6 +1174,12 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/x86_64-linux-gnu/bits/environments.h:
 
+/usr/include/c++/13/streambuf:
+
+/usr/include/c++/13/bits/memory_resource.h:
+
+/usr/include/wchar.h:
+
 /usr/include/c++/13/bits/memoryfwd.h:
 
 /usr/include/c++/13/bits/stl_heap.h:
@@ -1214,17 +1198,11 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/c++/13/bits/locale_facets_nonio.tcc:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h:
-
-/usr/include/c++/13/bits/stl_vector.h:
-
 /usr/include/c++/13/bits/stl_tempbuf.h:
 
 /usr/include/c++/13/bits/codecvt.h:
 
 /usr/include/c++/13/bits/random.h:
-
-/usr/include/c++/13/pstl/pstl_config.h:
 
 /usr/include/c++/13/stdexcept:
 
@@ -1235,8 +1213,6 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 /usr/include/features-time64.h:
 
 /usr/include/c++/13/initializer_list:
-
-/usr/include/c++/13/bits/std_thread.h:
 
 /usr/include/c++/13/tr1/bessel_function.tcc:
 
@@ -1253,6 +1229,8 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 /usr/include/c++/13/tr1/legendre_function.tcc:
 
 /usr/include/c++/13/tr1/modified_bessel_func.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_statx.h:
 
 /usr/include/c++/13/tr1/poly_hermite.tcc:
 
@@ -1344,6 +1322,8 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
+
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
@@ -1419,3 +1399,11 @@ client/CMakeFiles/client.dir/main.cpp.o: /home/daalginichev/OS_CP/client/main.cp
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+/usr/include/c++/13/bits/stl_vector.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:

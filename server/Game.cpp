@@ -40,6 +40,90 @@ Game::Game(const std::string& name, const std::string& creator, SharedMemoryRoot
     }
 }
 
+bool Game::has_only_one_player() const {
+    return (game_data->player1[0] != '\0' && game_data->player2[0] == '\0') ||
+           (game_data->player1[0] == '\0' && game_data->player2[0] != '\0');
+}
+
+bool Game::is_player_in_game(const std::string& player) const {
+    return player == std::string(game_data->player1) || 
+           player == std::string(game_data->player2);
+}
+
+void Game::remove_player(const std::string& player) {
+    if (player == std::string(game_data->player1)) {
+        // Удаляем первого игрока
+        game_data->player1[0] = '\0';
+        game_data->ship_count1 = 0;
+        game_data->hits1 = game_data->misses1 = game_data->sunk1 = 0;
+        
+        // Очищаем поле первого игрока
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                game_data->board1[i][j] = CELL_EMPTY;
+            }
+        }
+        
+        // Очищаем корабли первого игрока
+        for (int i = 0; i < 10; i++) {
+            game_data->ships1[i] = Ship();
+        }
+        
+        // Если игра была активной, переводим в ожидание
+        if (game_data->state == GAME_ACTIVE || game_data->state == GAME_SETUP) {
+            game_data->state = GAME_WAITING;
+        }
+    } 
+    else if (player == std::string(game_data->player2)) {
+        // Удаляем второго игрока
+        game_data->player2[0] = '\0';
+        game_data->ship_count2 = 0;
+        game_data->hits2 = game_data->misses2 = game_data->sunk2 = 0;
+        
+        // Очищаем поле второго игрока
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                game_data->board2[i][j] = CELL_EMPTY;
+            }
+        }
+        
+        // Очищаем корабли второго игрока
+        for (int i = 0; i < 10; i++) {
+            game_data->ships2[i] = Ship();
+        }
+        
+        // Если игра была активной, переводим в ожидание
+        if (game_data->state == GAME_ACTIVE || game_data->state == GAME_SETUP) {
+            game_data->state = GAME_WAITING;
+        }
+    }
+    
+    // Если остался только один игрок, сбрасываем состояние
+    if (has_only_one_player()) {
+        game_data->current_turn[0] = '\0';
+    }
+    
+    // Если не осталось игроков, помечаем игру как неиспользуемую
+    if (game_data->player1[0] == '\0' && game_data->player2[0] == '\0') {
+        game_data->used = false;
+    }
+}
+
+bool Game::is_empty() const { 
+    return game_data->player1[0] == '\0' && game_data->player2[0] == '\0'; 
+}
+
+bool Game::is_full() const { 
+    return game_data->player1[0] != '\0' && game_data->player2[0] != '\0'; 
+}
+
+int Game::get_player_count() const {
+    int count = 0;
+    if (game_data->player1[0] != '\0') count++;
+    if (game_data->player2[0] != '\0') count++;
+    return count;
+}
+
 Game::~Game() {
     if (game_data) {
         game_data->used = false;
@@ -51,11 +135,26 @@ int Game::get_id() const {
 }
 
 bool Game::join(const std::string& player2) {
-    if (game_data->state != GAME_WAITING) return false;
+    // Проверяем, не является ли игрок уже участником
+    if (std::string(game_data->player1) == player2 || 
+        std::string(game_data->player2) == player2) {
+        return false;
+    }
     
-    std::strncpy(game_data->player2, player2.c_str(), LOGIN_MAX - 1);
-    game_data->state = GAME_SETUP;
-    game_data->current_turn[0] = '\0';
+    // Определяем, в какое место поставить игрока
+    if (game_data->player1[0] == '\0') {
+        std::strncpy(game_data->player1, player2.c_str(), LOGIN_MAX - 1);
+    } else if (game_data->player2[0] == '\0') {
+        std::strncpy(game_data->player2, player2.c_str(), LOGIN_MAX - 1);
+    } else {
+        return false; // Оба места заняты
+    }
+    
+    // Если теперь в игре 2 игрока, переводим в режим расстановки
+    if (game_data->player1[0] != '\0' && game_data->player2[0] != '\0') {
+        game_data->state = GAME_SETUP;
+    }
+    
     return true;
 }
 
@@ -255,10 +354,16 @@ bool Game::check_hit(uint8_t x, uint8_t y, CellState board[BOARD_SIZE][BOARD_SIZ
             if (ship.horizontal) {
                 if (y == ship.start_y && x >= ship.start_x && x < ship.start_x + ship.size) {
                     ship.health--;
+                    std::cout << "DEBUG: Hit ship " << i << " at " << (int)x << "," << (int)y 
+                              << ". Health now: " << (int)ship.health << std::endl;
+                    
                     if (ship.health == 0) {
                         ship.sunk = true;
                         sunk = true;
                         sunk_ship_index = i;
+                        std::cout << "DEBUG: Ship " << i << " SUNK! Marking cells..." << std::endl;
+                        
+                        // Помечаем все клетки корабля как потопленные
                         for (int j = 0; j < ship.size; j++) {
                             board[ship.start_y][ship.start_x + j] = CELL_SUNK;
                         }
@@ -270,10 +375,15 @@ bool Game::check_hit(uint8_t x, uint8_t y, CellState board[BOARD_SIZE][BOARD_SIZ
             } else {
                 if (x == ship.start_x && y >= ship.start_y && y < ship.start_y + ship.size) {
                     ship.health--;
+                    std::cout << "DEBUG: Hit ship " << i << " at " << (int)x << "," << (int)y 
+                              << ". Health now: " << (int)ship.health << std::endl;
+                    
                     if (ship.health == 0) {
                         ship.sunk = true;
                         sunk = true;
                         sunk_ship_index = i;
+                        std::cout << "DEBUG: Ship " << i << " SUNK! Marking cells..." << std::endl;
+                        
                         for (int j = 0; j < ship.size; j++) {
                             board[ship.start_y + j][ship.start_x] = CELL_SUNK;
                         }
@@ -318,17 +428,24 @@ bool Game::make_shot(const std::string& shooter, uint8_t x, uint8_t y) {
     
     hit = check_hit(x, y, target_board, target_ships, target_ship_count, sunk, sunk_ship_index);
     
+    // УБЕДИТЕСЬ, ЧТО ЭТА ЧАСТЬ КОДА ВЫПОЛНЯЕТСЯ:
     if (is_player1) {
         if (hit) {
             game_data->hits1++;
-            if (sunk) game_data->sunk1++;
+            if (sunk) {
+                game_data->sunk1++;
+                std::cout << "DEBUG: Player 1 sunk a ship! Total sunk: " << (int)game_data->sunk1 << std::endl;
+            }
         } else {
             game_data->misses1++;
         }
     } else {
         if (hit) {
             game_data->hits2++;
-            if (sunk) game_data->sunk2++;
+            if (sunk) {
+                game_data->sunk2++;
+                std::cout << "DEBUG: Player 2 sunk a ship! Total sunk: " << (int)game_data->sunk2 << std::endl;
+            }
         } else {
             game_data->misses2++;
         }
@@ -340,6 +457,9 @@ bool Game::make_shot(const std::string& shooter, uint8_t x, uint8_t y) {
         std::strcpy(game_data->current_turn, "");
     } else if (!hit) {
         switch_turn();
+    } else {
+        // Если попали, но не потопили корабль, ход остается у того же игрока
+        std::cout << "DEBUG: Hit but not sunk, shooter gets another turn" << std::endl;
     }
     
     return hit;
@@ -517,9 +637,9 @@ std::string Game::get_statistics(const std::string& player) const {
     bool is_player1 = (player == std::string(game_data->player1));
     
     ss << "Статистика:\n";
-    ss << "Сбито кораблей: " << (is_player1 ? game_data->sunk1 : game_data->sunk2) << "\n";
-    ss << "Попаданий: " << (is_player1 ? game_data->hits1 : game_data->hits2) << "\n";
-    ss << "Промахов: " << (is_player1 ? game_data->misses1 : game_data->misses2) << "\n";
+    ss << "Сбито кораблей: " << (is_player1 ? (int)game_data->sunk1 : (int)game_data->sunk2) << "\n";
+    ss << "Попаданий: " << (is_player1 ? (int)game_data->hits1 : (int)game_data->hits2) << "\n";
+    ss << "Промахов: " << (is_player1 ? (int)game_data->misses1 : (int)game_data->misses2) << "\n";
     
     if (is_game_finished()) {
         ss << "Игра завершена!\n";

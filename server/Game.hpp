@@ -33,6 +33,14 @@ public:
     bool has_player(const std::string& player) const;
     bool is_player_turn(const std::string& player) const;
     
+    // Новые методы
+    bool has_only_one_player() const;
+    bool is_player_in_game(const std::string& player) const;
+    void remove_player(const std::string& player);
+    bool is_empty() const;
+    bool is_full() const;
+    int get_player_count() const;
+    
 private:
     int game_id;
     SharedMemoryRoot* root;
