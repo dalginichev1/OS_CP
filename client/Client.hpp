@@ -2,6 +2,7 @@
 #include "../include/SharedTypes.hpp"
 #include "../include/SharedMemory.hpp"
 #include <string>
+#include <random>
 
 class Client {
 public:
@@ -19,6 +20,8 @@ private:
     bool in_setup;
 
     bool setup_show_menu;
+
+    std::mt19937 rng;
     
     std::string pending_invite_game_name;
     std::string pending_invite_from;
@@ -35,4 +38,8 @@ private:
     void place_ships_interactive();
     void show_game_status();
     void clear_response_buffer();
+
+    void auto_place_ships();
+    bool try_place_ship_auto(uint8_t size, std::vector<std::pair<uint8_t, uint8_t>>& placed_positions);
+    bool is_valid_position(uint8_t x, uint8_t y, uint8_t size, bool horizontal, const std::vector<std::pair<uint8_t, uint8_t>>& placed_positions);
 };
