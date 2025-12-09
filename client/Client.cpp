@@ -325,7 +325,11 @@ bool Client::wait_for_response(std::string& out, int timeout_ms) {
 
 bool Client::check_for_async_messages() {
     std::string resp;
-    if (wait_for_response(resp, 0)) {
+    // Увеличьте timeout до 200ms
+    if (wait_for_response(resp, 20)) {
+        std::cout << "[DEBUG] check_for_async_messages got: " 
+                  << (resp.length() > 50 ? resp.substr(0, 50) + "..." : resp)
+                  << std::endl;
         handle_game_response(resp);
         return true;
     }
@@ -369,30 +373,50 @@ void Client::handle_game_response(const std::string& response) {
         }
     }
 
-    if (response.find("INVITE_FROM:") == 0) {
-        std::string invite_str = response.substr(12);
+    // Замените блок обработки INVITE_FROM_GAME на:
+    // Уберите все обработки INVITE_FROM_GAME и INVITE_FROM, оставьте только одну:
+    if (response.find("INVITE:") == 0) {
+        std::cout << "🎯 DEBUG: Processing invitation: " << response << std::endl;
 
-        size_t game_pos = invite_str.find("GAME:");
-        size_t id_pos = invite_str.find("ID:");
+        // Простой парсинг: INVITE:отправитель:имя_игры:ID
+        size_t first_colon = response.find(':');
+        size_t second_colon = response.find(':', first_colon + 1);
+        size_t third_colon = response.find(':', second_colon + 1);
 
-        if (game_pos != std::string::npos && id_pos != std::string::npos) {
-            std::string inviter = invite_str.substr(0, game_pos - 1);
-            std::string game_name = invite_str.substr(game_pos + 5, id_pos - game_pos - 6);
-            std::string game_id_str = invite_str.substr(id_pos + 3);
+        if (first_colon != std::string::npos && second_colon != std::string::npos &&
+            third_colon != std::string::npos) {
+
+            std::string inviter = response.substr(first_colon + 1, second_colon - first_colon - 1);
+            std::string game_name =
+                response.substr(second_colon + 1, third_colon - second_colon - 1);
+            std::string game_id_str = response.substr(third_colon + 1);
+
+            // Очищаем ID от лишних символов
+            game_id_str.erase(std::remove_if(game_id_str.begin(), game_id_str.end(),
+                                             [](char c) { return !std::isdigit(c); }),
+                              game_id_str.end());
 
             std::cout << "\n" << std::string(50, '=') << "\n";
             std::cout << "  🎮 ПРИГЛАШЕНИЕ В ИГРУ!\n";
             std::cout << std::string(50, '=') << "\n";
             std::cout << "  Игра: " << game_name << "\n";
-            std::cout << "  ID: " << game_id_str << "\n";
-            std::cout << "  Приглашает: " << inviter << "\n\n";
+            std::cout << "  Приглашает: " << inviter << "\n";
+            std::cout << "  ID: " << game_id_str << "\n\n";
             std::cout << "  Принять: join " << game_id_str << "\n";
-            std::cout << "  Игнорировать: ignore\n";
+            std::cout << "  Отклонить: ignore\n";
             std::cout << std::string(50, '=') << "\n";
 
-            pending_invite_game_name = game_name;
             pending_invite_from = inviter;
-            pending_invite_id = std::stoi(game_id_str);
+            pending_invite_game_name = game_name;
+
+            try {
+                pending_invite_id = std::stoi(game_id_str);
+            } catch (...) {
+                pending_invite_id = -1;
+            }
+
+            // Показываем меню с приглашением
+            show_main_menu();
         }
     } else if (response.find("OPPONENT_JOINED:") == 0) {
         std::cout << "\n🎯 Противник присоединился! Начинайте расставлять корабли.\n";
@@ -458,8 +482,13 @@ void Client::handle_game_response(const std::string& response) {
                 current_game_id = std::stoi(id_str);
             }
         }
-    } else if (response.find("INVITE_SENT") == 0) {
+    }
+    if (response.find("INVITE_SENT") == 0) {
         std::cout << "\n✅ " << response.substr(12) << "\n";
+        // Важно: меняем состояние на "в игре"
+        in_game = true;
+        in_setup = true;
+        std::cout << "🎮 Вы вошли в игру. Начинайте расстановку кораблей!\n";
     } else if (response.find("SETUP_COMPLETE") == 0) {
         std::cout << "\n✅ " << response.substr(15) << "\n";
         in_setup = false;
@@ -494,17 +523,20 @@ void Client::show_main_menu() {
     std::cout << "  2 - Создать публичную игру\n";
     std::cout << "  3 - Присоединиться к игре\n";
     std::cout << "  4 - Пригласить игрока\n";
-    std::cout << "  5 - Выйти\n";
+    std::cout << "  5 - Проверить приглашения\n"; // НОВЫЙ ПУНКТ
+    std::cout << "  6 - Выйти\n";
 
-    if (!pending_invite_game_name.empty()) {
-        std::cout << std::string(50, '-') << "\n";
-        std::cout << "  📨 Приглашение: " << pending_invite_game_name << "\n";
+    // Если есть активное приглашение, показываем его
+    if (pending_invite_id != -1) {
+        std::cout << std::string(50, '=') << "\n";
+        std::cout << "  📨 АКТИВНОЕ ПРИГЛАШЕНИЕ:\n";
+        std::cout << "  Игра: " << pending_invite_game_name << "\n";
         std::cout << "  От: " << pending_invite_from << "\n";
+        std::cout << "  ID: " << pending_invite_id << "\n";
         std::cout << "  Принять: join " << pending_invite_id << "\n";
-        std::cout << "  Игнорировать: ignore\n";
+        std::cout << std::string(50, '=') << "\n";
     }
 
-    std::cout << std::string(50, '-') << "\n";
     std::cout << "  Выберите действие: ";
 }
 
@@ -524,6 +556,7 @@ void Client::place_ships_interactive() {
     std::cout << "    auto - автоматическая расстановка\n";
     std::cout << "    ready - готов к игре\n";
     std::cout << "    board - посмотреть поле\n";
+    std::cout << "    invite <логин> - пригласить игрока в эту игру\n"; // НОВОЕ
     std::cout << "    menu - выйти в меню\n";
     std::cout << std::string(50, '-') << "\n";
 }
@@ -546,9 +579,17 @@ void Client::clear_response_buffer() {
     pthread_mutex_lock(&root->mutex);
     ClientSlot* slot = my_slot();
     if (slot && slot->has_response) {
-        std::cout << "[DEBUG] Clearing old response: " << slot->response << std::endl;
-        slot->has_response = false;
-        std::memset(slot->response, 0, RESP_MAX);
+        std::string resp = slot->response;
+        std::cout << "[DEBUG] Buffer has: " << resp << std::endl;
+        
+        // НЕ очищаем приглашения!
+        if (resp.find("INVITE:") == 0) {
+            std::cout << "[DEBUG] Keeping invitation in buffer" << std::endl;
+        } else {
+            std::cout << "[DEBUG] Clearing buffer" << std::endl;
+            slot->has_response = false;
+            std::memset(slot->response, 0, RESP_MAX);
+        }
     }
     pthread_mutex_unlock(&root->mutex);
 }
@@ -592,7 +633,12 @@ void Client::run() {
             check_counter = 0;
         }
 
-        check_for_async_messages();
+        for (int i = 0; i < 3; i++) {
+        if (check_for_async_messages()) {
+            break; // Если нашли сообщение, выходим
+        }
+        usleep(50 * 1000); // 50ms между проверками
+        }
 
         if (!in_game) {
             show_main_menu();
@@ -680,34 +726,76 @@ void Client::run() {
                     }
                 }
             } else if (line == "4") {
-                std::cout << "\n👥 Введите логин игрока: ";
+                // Создать приватную игру и пригласить игрока
+                std::cout << "\n👥 Введите логин игрока для приглашения: ";
                 std::string target;
                 std::getline(std::cin, target);
 
-                if (target.empty()) {
-                    std::cout << "\n❌ Логин не может быть пустым\n";
-                    continue;
-                }
+                // Сначала создаем игру
+                std::string game_name = login + "_vs_" + target + "_private";
 
-                if (target == login) {
-                    std::cout << "\n❌ Нельзя пригласить самого себя\n";
-                    continue;
-                }
+                Message create_msg;
+                std::memset(&create_msg, 0, sizeof(create_msg));
+                std::strncpy(create_msg.from, login.c_str(), LOGIN_MAX - 1);
+                create_msg.type = MSG_CREATE;
+                std::strncpy(create_msg.payload, game_name.c_str(), CMD_MAX - 1);
 
-                Message m;
-                std::memset(&m, 0, sizeof(m));
-                std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);
-                m.type = MSG_INVITE;
-                std::strncpy(m.payload, target.c_str(), CMD_MAX - 1);
-
-                if (!enqueue_message(m)) {
+                if (!enqueue_message(create_msg)) {
                     std::cout << "\n❌ Очередь переполнена\n";
-                } else {
-                    if (wait_for_response(resp, 2000)) {
+                    continue;
+                }
+
+                std::string resp;
+                if (wait_for_response(resp, 2000)) {
+                    if (resp.find("GAME_CREATED") != std::string::npos) {
+                        // Игра создана, теперь приглашаем
+                        Message invite_msg;
+                        std::memset(&invite_msg, 0, sizeof(invite_msg));
+                        std::strncpy(invite_msg.from, login.c_str(), LOGIN_MAX - 1);
+                        invite_msg.type = MSG_INVITE_TO_GAME;
+                        std::strncpy(invite_msg.payload, target.c_str(), CMD_MAX - 1);
+
+                        if (!enqueue_message(invite_msg)) {
+                            std::cout << "\n❌ Очередь переполнена\n";
+                        } else {
+                            std::string invite_resp;
+                            if (wait_for_response(invite_resp, 2000)) {
+                                handle_game_response(invite_resp);
+                                // После создания игры показываем меню расстановки
+                                if (in_game && in_setup) {
+                                    place_ships_interactive();
+                                }
+                            }
+                        }
+                    } else {
                         handle_game_response(resp);
                     }
                 }
+
             } else if (line == "5") {
+                // Проверить приглашения
+                std::cout << "\n🔄 Проверяем приглашения...\n";
+
+                // Очищаем старые ответы
+                // clear_response_buffer();
+
+                // Проверяем несколько раз подряд
+                bool found_invitation = false;
+                for (int i = 0; i < 3; i++) {
+                    if (check_for_async_messages()) {
+                        found_invitation = true;
+                    }
+                    usleep(100 * 1000); // 100ms между проверками
+                }
+
+                if (!found_invitation && pending_invite_id == -1) {
+                    std::cout << "📭 Приглашений нет\n";
+                } else if (pending_invite_id != -1) {
+                    std::cout << "✅ Есть активное приглашение (ID: " << pending_invite_id << ")\n";
+                    std::cout << "  Принять: join " << pending_invite_id << "\n";
+                }
+            } else if (line == "6") {
+                // Выйти (старый пункт 5 перемещается сюда)
                 force_check_state();
 
                 std::cout << "\n🚪 Вы уверены? (да/нет): ";
@@ -728,6 +816,30 @@ void Client::run() {
                     running = false;
                     std::cout << "\n👋 Выход...\n";
                 }
+            } else if (line.find("join ") == 0) {
+                std::string game_id_str = line.substr(5);
+
+                Message m;
+                std::memset(&m, 0, sizeof(m));
+                std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);
+                m.type = MSG_JOIN;
+                std::strncpy(m.payload, game_id_str.c_str(), CMD_MAX - 1);
+
+                if (!enqueue_message(m)) {
+                    std::cout << "\n❌ Очередь переполнена\n";
+                } else {
+                    if (wait_for_response(resp, 2000)) {
+                        handle_game_response(resp);
+                        pending_invite_game_name.clear();
+                        pending_invite_from.clear();
+                        pending_invite_id = -1;
+                    }
+                }
+            } else if (line == "ignore") {
+                std::cout << "\n❌ Приглашение отклонено\n";
+                pending_invite_game_name.clear();
+                pending_invite_from.clear();
+                pending_invite_id = -1;
             } else {
                 std::cout << "\n❌ Неверная команда\n";
             }
@@ -787,7 +899,34 @@ void Client::run() {
                             handle_game_response(resp);
                         }
                     }
-                } else if (cmd_lower == "menu") {
+                }
+
+                // В режиме расстановки кораблей
+                else if (cmd_lower.find("invite ") == 0) {
+                    std::string target = command.substr(7);
+
+                    if (target.empty() || target == login) {
+                        std::cout << "\n❌ Неверный логин\n";
+                        continue;
+                    }
+
+                    Message m;
+                    std::memset(&m, 0, sizeof(m));
+                    std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);
+                    m.type = MSG_INVITE_TO_GAME; // Используем новый тип
+                    std::strncpy(m.payload, target.c_str(), CMD_MAX - 1);
+
+                    if (!enqueue_message(m)) {
+                        std::cout << "\n❌ Очередь переполнена\n";
+                    } else {
+                        std::string resp;
+                        if (wait_for_response(resp, 2000)) {
+                            handle_game_response(resp);
+                        }
+                    }
+                }
+
+                else if (cmd_lower == "menu") {
                     Message m;
                     std::memset(&m, 0, sizeof(m));
                     std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);

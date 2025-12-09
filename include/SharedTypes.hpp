@@ -76,6 +76,7 @@ enum MsgType : uint8_t {
     MSG_REGISTER = 1,
     MSG_LIST = 2,
     MSG_INVITE = 3,
+    MSG_INVITE_TO_GAME = 16,
     MSG_ACCEPT = 4,
     MSG_SHOT = 5,
     MSG_QUIT = 6,

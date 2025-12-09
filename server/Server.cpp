@@ -154,15 +154,16 @@ int Server::create_private_game(const std::string& creator, const std::string& t
 }
 
 int Server::create_public_game(const std::string& game_name, const std::string& creator) {
-    if (root->game_count >= 16) return -1;
-    
+    if (root->game_count >= 16)
+        return -1;
+
     // Проверяем, не существует ли уже игры с таким именем
     for (int i = 0; i < 16; i++) {
         if (root->games[i].used && std::strcmp(root->games[i].game_name, game_name.c_str()) == 0) {
             return -2; // Игра с таким именем уже существует
         }
     }
-    
+
     int game_id = -1;
     for (int i = 0; i < 16; i++) {
         if (!root->games[i].used) {
@@ -170,22 +171,24 @@ int Server::create_public_game(const std::string& game_name, const std::string& 
             break;
         }
     }
-    
-    if (game_id == -1) return -1;
-    
+
+    if (game_id == -1)
+        return -1;
+
     // Создаем игру
     Game* game = new Game(game_name, creator, root, true);
     games_map[game_id] = game;
     root->game_count++;
-    
+
     // Обновляем состояние клиента
     ClientSlot* client = find_client(creator.c_str());
     if (client) {
         client->current_game_id = game_id;
         client->setup_complete = false;
     }
-    
-    std::cout << "Public game '" << game_name << "' created by " << creator << " (ID: " << game_id << ")" << std::endl;
+
+    std::cout << "Public game '" << game_name << "' created by " << creator << " (ID: " << game_id
+              << ")" << std::endl;
     return game_id;
 }
 
@@ -487,35 +490,95 @@ void Server::handle_message(const Message& m) {
         break;
     }
     case MSG_INVITE: {
-        // Приглашение конкретного игрока
         const char* target = m.payload;
         ClientSlot* tgt = find_client(target);
+        ClientSlot* sender = find_client(m.from);
 
         if (!tgt) {
             send_response_to(m.from, "INVITE_FAIL:Игрок не найден");
         } else if (tgt->current_game_id != -1) {
             send_response_to(m.from, "INVITE_FAIL:Игрок уже в игре");
-        } else if (find_client(m.from)->current_game_id != -1) {
+        } else if (sender->current_game_id != -1) {
             send_response_to(m.from, "INVITE_FAIL:Вы уже в игре");
         } else {
             int game_id = create_private_game(m.from, target);
             if (game_id == -1) {
                 send_response_to(m.from, "INVITE_FAIL:Сервер переполнен");
             } else {
-                // Отправляем приглашение
+                // Отправляем приглашение - ИСПОЛЬЗУЙТЕ ТОТ ЖЕ ФОРМАТ!
                 Game* game = get_game(game_id);
                 if (game) {
                     char buf[RESP_MAX];
-                    std::snprintf(buf, RESP_MAX, "INVITE_FROM:%s:GAME:%s:ID:%d", m.from,
+                    // ИЗМЕНИТЕ ФОРМАТ НА ТОТ ЖЕ, ЧТО И В MSG_INVITE_TO_GAME
+                    std::snprintf(buf, RESP_MAX, "INVITE:%s:%s:%d", m.from,
                                   game->get_game_name().c_str(), game_id);
+
+                    std::cout << "📤 Sending invitation from menu: " << buf << std::endl;
                     send_response_to(target, buf);
                     send_response_to(m.from, "INVITE_SENT:Приглашение отправлено");
-                    std::cout << m.from << " invited " << target << " to private game\n";
+
+                    // ВАЖНО: Приглашающий автоматически заходит в игру
+                    sender->current_game_id = game_id;
+                    sender->setup_complete = false;
+
+                    // Отправляем приглашающему инструкции по расстановке
+                    std::string instructions =
+                        "SHIP_PLACEMENT:\n"
+                        "Разместите корабли: place размер,x,y,ориентация(H/V)\n"
+                        "Корабли: 1x4, 2x3, 3x2, 4x1\n"
+                        "Пример: place 4,0,0,H\n"
+                        "Когда готовы: ready";
+
+                    send_response_to(m.from, instructions.c_str());
+                    std::cout << m.from << " invited " << target
+                              << " to private game (ID: " << game_id << "). Creator auto-joined.\n";
                 }
             }
         }
         break;
     }
+
+    case MSG_INVITE_TO_GAME: {
+        std::cout << "\n=== DEBUG: Processing MSG_INVITE_TO_GAME ===" << std::endl;
+
+        const char* target = m.payload;
+        ClientSlot* tgt = find_client(target);
+        ClientSlot* sender = find_client(m.from);
+
+        if (!tgt) {
+            std::cout << "❌ Target '" << target << "' not found!" << std::endl;
+            send_response_to(m.from, "INVITE_FAIL:Игрок не найден");
+            break;
+        }
+
+        if (!sender || sender->current_game_id == -1) {
+            std::cout << "❌ Sender not in game" << std::endl;
+            send_response_to(m.from, "INVITE_FAIL:Вы не в игре");
+            break;
+        }
+
+        Game* game = get_game(sender->current_game_id);
+        if (!game) {
+            std::cout << "❌ Game not found" << std::endl;
+            send_response_to(m.from, "INVITE_FAIL:Игра не найдена");
+            break;
+        }
+
+        // Получаем имя игры
+        std::string game_name = game->get_game_name();
+
+        // Используем тот же формат, что и в MSG_INVITE
+        char buf[RESP_MAX];
+        std::snprintf(buf, RESP_MAX, "INVITE:%s:%s:%d", m.from, game_name.c_str(),
+                      sender->current_game_id);
+
+        std::cout << "📤 Sending to '" << target << "': " << buf << std::endl;
+        send_response_to(target, buf);
+        send_response_to(m.from, "INVITE_SENT:Приглашение отправлено");
+
+        break;
+    }
+
     case MSG_CREATE: {
         std::string game_name = m.payload;
 
