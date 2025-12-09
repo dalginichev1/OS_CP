@@ -783,12 +783,27 @@ void Server::handle_message(const Message &m) {
             ClientSlot* client = find_client(m.from);
             if (client && client->current_game_id != -1) {
                 Game* game = get_game(client->current_game_id);
-                if (game && game->is_waiting()) {
-                    // Если игра еще не началась, просто выходим
-                    remove_game(client->current_game_id);
-                    send_response_to(m.from, "LEFT_GAME:Вы вышли из игры");
-                } else {
-                    send_response_to(m.from, "ERROR:Cannot leave game that has started");
+                if (game) {
+                    // Разрешаем выход если игра еще не активна (WAITING или SETUP)
+                    if (game->is_waiting() || game->get_game_name() != "" /* в SETUP */) {
+                        // Уведомляем другого игрока, если он есть
+                        std::string other_player = "";
+                        if (game->get_player1() == m.from && game->get_player2()[0] != '\0') {
+                            other_player = game->get_player2();
+                        } else if (game->get_player2() == m.from && game->get_player1()[0] != '\0') {
+                            other_player = game->get_player1();
+                        }
+                        
+                        if (!other_player.empty()) {
+                            send_response_to(other_player.c_str(), "OPPONENT_LEFT:Игрок вышел из игры");
+                        }
+                        
+                        // Удаляем игру
+                        remove_game(client->current_game_id);
+                        send_response_to(m.from, "LEFT_GAME:Вы вышли из игры");
+                    } else if (game->is_game_active() || game->is_game_finished()) {
+                        send_response_to(m.from, "ERROR:Cannot leave game that has started");
+                    }
                 }
             }
             break;

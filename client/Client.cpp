@@ -121,30 +121,42 @@ void Client::auto_place_ships() {
     std::cout << "  АВТОМАТИЧЕСКАЯ РАССТАНОВКА КОРАБЛЕЙ\n";
     std::cout << std::string(50, '=') << "\n";
 
-    // Простая предопределенная расстановка, которая точно работает
+    // Улучшенная расстановка - больше расстояния между кораблями
     std::vector<std::string> ships = {
-        "4,0,0,H", // Авианосец (4 клетки) - верхний левый угол
-        "3,0,4,H", // Линкор 1 (3 клетки)
-        "3,0,7,H", // Линкор 2 (3 клетки)
-        "2,4,0,H", // Крейсер 1 (2 клетки)
-        "2,4,3,H", // Крейсер 2 (2 клетки)
-        "2,4,6,H", // Крейсер 3 (2 клетки)
-        "1,7,0,H", // Эсминец 1 (1 клетка)
-        "1,7,2,H", // Эсминец 2 (1 клетка)
-        "1,7,4,H", // Эсминец 3 (1 клетка)
-        "1,7,6,H"  // Эсминец 4 (1 клетка)
+        "4,0,0,H", // Авианосец (4) - верхний левый
+        "3,0,5,H", // Линкор 1 (3) - правее (было 0,4)
+        "3,0,8,H", // Линкор 2 (3) - еще правее (было 0,7)
+        "2,3,0,H", // Крейсер 1 (2) - ниже первого (было 4,0)
+        "2,3,3,H", // Крейсер 2 (2) - правее (было 4,3)
+        "2,3,6,H", // Крейсер 3 (2) - еще правее (было 4,6)
+        "1,6,0,H", // Эсминец 1 (1) - ниже (было 7,0)
+        "1,6,2,H", // Эсминец 2 (1) - правее (было 7,2)
+        "1,6,4,H", // Эсминец 3 (1) - еще правее (было 7,4)
+        "1,6,6,H"  // Эсминец 4 (1) - еще правее (было 7,6)
     };
+
+    // ИЛИ альтернативная расстановка (все корабли в разных углах):
+    // std::vector<std::string> ships = {
+    //     "4,0,0,H",      // Левый верхний угол
+    //     "3,6,0,H",      // Правый верхний
+    //     "3,0,6,V",      // Левый нижний (вертикальный)
+    //     "2,3,3,H",      // Центр
+    //     "2,7,3,H",      // Правый центр
+    //     "2,0,9,H",      // Самый низ слева
+    //     "1,9,0,H",      // Правый верхний угол
+    //     "1,9,2,H",      // Чуть ниже
+    //     "1,9,4,H",      // Еще ниже
+    //     "1,9,6,H"       // Еще ниже
+    // };
 
     int placed_ships = 0;
     int total_ships = ships.size();
 
-    // Очищаем старые ответы
     clear_response_buffer();
 
     for (const auto& ship_cmd : ships) {
         std::cout << "Размещаем корабль: " << ship_cmd << "... ";
 
-        // Отправляем команду на сервер
         Message m;
         std::memset(&m, 0, sizeof(m));
         std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);
@@ -156,12 +168,12 @@ void Client::auto_place_ships() {
             continue;
         }
 
-        // Ждем ответ
         std::string resp;
         if (wait_for_response(resp, 2000)) {
+            // Исправляем проверку ответа
             if (resp.find("SHIP_PLACED") != std::string::npos ||
-                resp.find("SHIP_PLACEMENT") != std::string::npos ||
-                resp.find("OK") != std::string::npos) {
+                resp.find("OK") != std::string::npos ||
+                resp.find("YOUR_BOARD") != std::string::npos) {
                 placed_ships++;
                 std::cout << "✅ Успешно\n";
             } else {
@@ -171,7 +183,6 @@ void Client::auto_place_ships() {
             std::cout << "❌ Нет ответа от сервера\n";
         }
 
-        // Небольшая задержка между запросами
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
 
@@ -189,14 +200,15 @@ void Client::auto_place_ships() {
         std::strncpy(board_msg.from, login.c_str(), LOGIN_MAX - 1);
         board_msg.type = MSG_GET_BOARD;
 
+        clear_response_buffer();
+
         if (enqueue_message(board_msg)) {
             std::string resp;
             if (wait_for_response(resp, 2000)) {
-                handle_game_response(resp);
+                std::cout << "\n" << resp << "\n";
             }
         }
 
-        // Не отправляем ready автоматически - пусть пользователь сам решит
         std::cout << "  Для завершения расстановки введите 'ready'\n";
     } else {
         std::cout << "  ⚠️  Не все корабли удалось разместить\n";
@@ -311,10 +323,12 @@ void Client::handle_game_response(const std::string& response) {
         std::cout << "\n" << response.substr(14) << "\n";
     } else if (response.find("YOUR_TURN:") == 0) {
         std::cout << "\n🎯 ВАШ ХОД! " << response.substr(10) << "\n";
+    } else if (response.find("YOUR_TURN_AGAIN:") == 0) {
+        std::cout << "\n🎯 ВАШ ХОД СНОВА! " << response.substr(16) << "\n";
     } else if (response.find("OPPONENT_SHOT:") == 0) {
         std::cout << "\n💥 ПРОТИВНИК СТРЕЛЯЕТ: " << response.substr(14) << "\n";
     } else if (response.find("SHOT_RESULT:") == 0) {
-        std::cout << "\n📊 РЕЗУЛЬТАТ: " << response.substr(12) << "\n";
+        std::cout << "\n📊 РЕЗУЛЬТАТ ВЫСТРЕЛА: " << response.substr(12) << "\n";
     } else if (response.find("VICTORY:") == 0) {
         std::cout << "\n" << std::string(50, '=') << "\n";
         std::cout << "  🎉 ПОБЕДА! 🎉\n";
@@ -338,29 +352,20 @@ void Client::handle_game_response(const std::string& response) {
         pending_invite_game_name.clear();
         pending_invite_from.clear();
         pending_invite_id = -1;
-        // НЕ вызываем place_ships_interactive() здесь - это будет сделано в run()
     } else if (response.find("SHIP_PLACEMENT:") == 0) {
         std::cout << "\n" << response << "\n";
-        // Если получили инструкции по расстановке, переключаемся в режим игры
         if (!in_game) {
             in_game = true;
             in_setup = true;
         }
-        // Показываем инструкции по расстановке
-    }
-    // В методе handle_game_response добавьте:
-    else if (response.find("GAME_CREATED") == 0) {
+    } else if (response.find("GAME_CREATED") == 0) {
         std::cout << "\n✅ " << response.substr(13) << "\n";
-
-        // После создания игры автоматически переходим в режим расстановки
         in_game = true;
         in_setup = true;
 
-        // Ищем ID игры в ответе
         size_t id_pos = response.find("ID:");
         if (id_pos != std::string::npos) {
             std::string id_str = response.substr(id_pos + 3);
-            // Убираем все нецифры
             id_str.erase(std::remove_if(id_str.begin(), id_str.end(),
                                         [](char c) { return !std::isdigit(c); }),
                          id_str.end());
@@ -373,16 +378,29 @@ void Client::handle_game_response(const std::string& response) {
     } else if (response.find("SETUP_COMPLETE") == 0) {
         std::cout << "\n✅ " << response.substr(15) << "\n";
         in_setup = false;
+    } else if (response.find("OPPONENT_VIEW_UPDATE:") == 0) {
+        std::cout << "\n" << response.substr(21) << "\n";
+    } else if (response.find("GAME_STATUS:") == 0) {
+        std::cout << "\n" << response.substr(12) << "\n";
+    } else if (response.find("FINAL_STATS:") == 0) {
+        std::cout << "\n📊 " << response.substr(12) << "\n";
     } else if (response.find("ERROR:") == 0 || response.find("FAIL:") == 0 ||
-               response.find("INVALID") == 0) {
+               response.find("INVALID") == 0 || response.find("SHIP_ERROR") == 0) {
         std::cout << "\n❌ " << response << "\n";
     } else if (response.find("REGISTERED:") == 0) {
         std::cout << "\n✅ " << response.substr(11) << "\n";
+    } else if (response.find("LEFT_GAME:") == 0) {
+        std::cout << "\n🚪 " << response.substr(10) << "\n";
+        in_game = false;
+        in_setup = false;
+        current_game_id = -1;
     } else if (!response.empty() && response.find("===") != 0) {
-        std::cout << "\n" << response << "\n";
+        // Выводим только если это не пустая строка и не заголовок
+        if (response != "\n" && response.length() > 2) {
+            std::cout << "\n" << response << "\n";
+        }
     }
 }
-
 void Client::show_main_menu() {
     std::cout << "\n" << std::string(50, '=') << "\n";
     std::cout << "  МОРСКОЙ БОЙ\n";
@@ -703,16 +721,28 @@ void Client::run() {
                 }
             } else {
                 // Игра в процессе (стрельба)
-                check_for_async_messages();
+                bool has_async = check_for_async_messages();
+
+                // Если есть асинхронное сообщение, показываем его и ждем следующего ввода
+                if (has_async) {
+                    // Не показываем меню сразу, ждем ввода пользователя
+                    std::cout << "\nНажмите Enter для продолжения...";
+                    std::string dummy;
+                    std::getline(std::cin, dummy);
+                }
+
                 show_game_menu();
 
                 std::string line;
                 std::getline(std::cin, line);
 
                 if (line == "1") {
-                    std::cout << "\n🎯 Координаты (x,y): ";
+                    std::cout << "\n🎯 Координаты выстрела (x,y): ";
                     std::string shot;
                     std::getline(std::cin, shot);
+
+                    // Очищаем буфер перед отправкой
+                    clear_response_buffer();
 
                     Message m;
                     std::memset(&m, 0, sizeof(m));
@@ -720,11 +750,17 @@ void Client::run() {
                     m.type = MSG_SHOT;
                     std::strncpy(m.payload, shot.c_str(), CMD_MAX - 1);
 
+                    std::cout << "🔄 Отправляем выстрел...\n";
+
                     if (!enqueue_message(m)) {
                         std::cout << "\n❌ Очередь переполнена\n";
                     } else {
-                        if (wait_for_response(resp, 2000)) {
+                        std::string resp;
+                        if (wait_for_response(resp, 3000)) {
+                            std::cout << "📥 Ответ сервера получен\n";
                             handle_game_response(resp);
+                        } else {
+                            std::cout << "❌ Нет ответа от сервера\n";
                         }
                     }
                 } else if (line == "2") {
