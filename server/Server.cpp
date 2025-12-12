@@ -157,10 +157,9 @@ int Server::create_public_game(const std::string& game_name, const std::string& 
     if (root->game_count >= 16)
         return -1;
 
-    // Проверяем, не существует ли уже игры с таким именем
     for (int i = 0; i < 16; i++) {
         if (root->games[i].used && std::strcmp(root->games[i].game_name, game_name.c_str()) == 0) {
-            return -2; // Игра с таким именем уже существует
+            return -2; 
         }
     }
 
@@ -180,7 +179,6 @@ int Server::create_public_game(const std::string& game_name, const std::string& 
     games_map[game_id] = game;
     root->game_count++;
 
-    // Обновляем состояние клиента
     ClientSlot* client = find_client(creator.c_str());
     if (client) {
         client->current_game_id = game_id;
@@ -214,7 +212,6 @@ void Server::remove_game(int game_id) {
     if (it != games_map.end()) {
         Game* game = it->second;
 
-        // Уведомляем всех игроков, что игра удалена
         std::string player1 = game->get_player1();
         std::string player2 = game->get_player2();
 
@@ -236,7 +233,6 @@ void Server::remove_game(int game_id) {
             }
         }
 
-        // Удаляем игру
         delete game;
         games_map.erase(it);
         root->game_count--;
@@ -505,11 +501,9 @@ void Server::handle_message(const Message& m) {
             if (game_id == -1) {
                 send_response_to(m.from, "INVITE_FAIL:Сервер переполнен");
             } else {
-                // Отправляем приглашение - ИСПОЛЬЗУЙТЕ ТОТ ЖЕ ФОРМАТ!
                 Game* game = get_game(game_id);
                 if (game) {
                     char buf[RESP_MAX];
-                    // ИЗМЕНИТЕ ФОРМАТ НА ТОТ ЖЕ, ЧТО И В MSG_INVITE_TO_GAME
                     std::snprintf(buf, RESP_MAX, "INVITE:%s:%s:%d", m.from,
                                   game->get_game_name().c_str(), game_id);
 
@@ -517,11 +511,9 @@ void Server::handle_message(const Message& m) {
                     send_response_to(target, buf);
                     send_response_to(m.from, "INVITE_SENT:Приглашение отправлено");
 
-                    // ВАЖНО: Приглашающий автоматически заходит в игру
                     sender->current_game_id = game_id;
                     sender->setup_complete = false;
 
-                    // Отправляем приглашающему инструкции по расстановке
                     std::string instructions =
                         "SHIP_PLACEMENT:\n"
                         "Разместите корабли: place размер,x,y,ориентация(H/V)\n"
@@ -564,10 +556,8 @@ void Server::handle_message(const Message& m) {
             break;
         }
 
-        // Получаем имя игры
         std::string game_name = game->get_game_name();
 
-        // Используем тот же формат, что и в MSG_INVITE
         char buf[RESP_MAX];
         std::snprintf(buf, RESP_MAX, "INVITE:%s:%s:%d", m.from, game_name.c_str(),
                       sender->current_game_id);
@@ -598,20 +588,17 @@ void Server::handle_message(const Message& m) {
             break;
         }
 
-        // Проверяем, не находится ли клиент уже в игре
         if (client->current_game_id != -1) {
             Game* existing_game = get_game(client->current_game_id);
             if (existing_game && existing_game->has_player(m.from)) {
                 send_response_to(m.from, "CREATE_FAIL:Вы уже в игре");
                 break;
             } else {
-                // Если есть game_id, но игрока нет в игре - сбрасываем
                 client->current_game_id = -1;
                 client->setup_complete = false;
             }
         }
 
-        // Проверяем, не существует ли уже игры с таким именем
         for (int i = 0; i < 16; i++) {
             if (root->games[i].used &&
                 std::strcmp(root->games[i].game_name, game_name.c_str()) == 0) {
@@ -634,7 +621,6 @@ void Server::handle_message(const Message& m) {
         break;
     }
     case MSG_JOIN: {
-        // Присоединение к игре (публичной или по приглашению)
         std::string target = m.payload;
 
         ClientSlot* client = find_client(m.from);
@@ -651,13 +637,11 @@ void Server::handle_message(const Message& m) {
         Game* game = nullptr;
         int game_id = -1;
 
-        // Пробуем найти по ID
         if (isdigit(target[0])) {
             game_id = std::stoi(target);
             game = get_game(game_id);
         }
 
-        // Если не нашли по ID, ищем по имени
         if (!game) {
             for (auto& pair : games_map) {
                 if (pair.second->get_game_name() == target) {
@@ -673,35 +657,29 @@ void Server::handle_message(const Message& m) {
             break;
         }
 
-        // Проверяем, не пытается ли игрок присоединиться к своей же игре
         if (game->get_player1() == m.from || game->get_player2() == m.from) {
             send_response_to(m.from, "JOIN_FAIL:Вы уже в этой игре");
             break;
         }
 
-        // Проверяем, есть ли свободное место в игре
         if (game->get_player1()[0] && game->get_player2()[0]) {
             send_response_to(m.from, "JOIN_FAIL:Игра уже заполнена");
             break;
         }
 
-        // Присоединяем игрока
         if (game->join(m.from)) {
             client->current_game_id = game_id;
 
-            // Определяем, кто является создателем
             std::string creator = game->get_player1();
             if (creator.empty())
                 creator = game->get_player2();
 
             send_response_to(m.from, "JOIN_OK:Вы присоединились к игре");
 
-            // Если создатель в игре, уведомляем его
             if (!creator.empty() && creator != m.from) {
                 send_response_to(creator.c_str(), "OPPONENT_JOINED:Игрок присоединился");
             }
 
-            // Инструкции по расстановке
             std::string instructions = "SHIP_PLACEMENT:\n"
                                        "Разместите корабли: place размер,x,y,ориентация(H/V)\n"
                                        "Корабли: 1x4, 2x3, 3x2, 4x1\n"
@@ -716,7 +694,6 @@ void Server::handle_message(const Message& m) {
         break;
     }
     case MSG_ACCEPT: {
-        // Старый формат принятия приглашения (для совместимости)
         int game_id = -1;
         if (sscanf(m.payload, "%d", &game_id) == 1) {
             Game* game = get_game(game_id);
@@ -770,7 +747,6 @@ void Server::handle_message(const Message& m) {
         uint8_t size, x, y;
         bool horizontal;
 
-        // Парсим команду
         int s, x_pos, y_pos;
         char orientation;
 
@@ -799,7 +775,6 @@ void Server::handle_message(const Message& m) {
         y = static_cast<uint8_t>(y_pos);
         horizontal = (orientation == 'H');
 
-        // Пробуем разместить корабль
         if (game->place_ship(m.from, size, x, y, horizontal)) {
             send_response_to(m.from, "SHIP_PLACED:OK");
             std::cout << "DEBUG: Ship placed successfully" << std::endl;
@@ -915,13 +890,11 @@ void Server::handle_message(const Message& m) {
                     break;
                 }
 
-                // Разрешаем выход в любом состоянии игры (кроме завершенной)
                 if (game->is_game_finished()) {
                     send_response_to(m.from, "ERROR:Game already finished");
                     break;
                 }
 
-                // Определяем другого игрока для уведомления
                 std::string other_player;
                 if (game->get_player1() == m.from) {
                     other_player = game->get_player2();
@@ -929,32 +902,26 @@ void Server::handle_message(const Message& m) {
                     other_player = game->get_player1();
                 }
 
-                // Удаляем игрока из игры
                 game->remove_player(m.from);
 
-                // Если остался другой игрок - уведомляем его
                 if (!other_player.empty()) {
                     std::string message =
                         "OPPONENT_LEFT:Игрок " + std::string(m.from) + " вышел из игры";
                     send_response_to(other_player.c_str(), message.c_str());
 
-                    // Если игра перешла в состояние ожидания
                     if (game->is_waiting()) {
                         send_response_to(other_player.c_str(),
                                          "GAME_WAITING:Игра ожидает нового игрока");
                     }
                 }
 
-                // Сбрасываем клиентский слот
                 client->current_game_id = -1;
                 client->setup_complete = false;
                 send_response_to(m.from, "LEFT_GAME:Вы вышли из игры");
 
-                // Если игра полностью пустая, удаляем ее
                 if (!game->get_player1()[0] && !game->get_player2()[0]) {
                     remove_game(client->current_game_id);
                 } else {
-                    // Обновляем слот другого игрока
                     if (!other_player.empty()) {
                         ClientSlot* other_client = find_client(other_player.c_str());
                         if (other_client) {

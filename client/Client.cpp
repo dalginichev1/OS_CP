@@ -16,11 +16,9 @@ Client::Client()
 }
 
 void Client::force_check_state() {
-    // Проверяем наше текущее состояние
     if (current_game_id != -1) {
         std::cout << "🔄 Проверяем состояние игры...\n";
 
-        // Отправляем запрос статуса игры
         Message m;
         std::memset(&m, 0, sizeof(m));
         std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);
@@ -34,13 +32,11 @@ void Client::force_check_state() {
                 if (resp.find("ERROR") != std::string::npos ||
                     resp.find("GAME_REMOVED") != std::string::npos ||
                     resp.find("Not in a game") != std::string::npos) {
-                    // Игра не существует
                     std::cout << "⚠️ Игра не найдена, сбрасываем состояние\n";
                     in_game = false;
                     in_setup = false;
                     current_game_id = -1;
 
-                    // Также сбрасываем на сервере
                     ClientSlot* slot = my_slot();
                     if (slot) {
                         slot->current_game_id = -1;
@@ -61,7 +57,7 @@ void Client::force_check_state() {
 
 bool Client::is_valid_position(uint8_t x, uint8_t y, uint8_t size, bool horizontal,
                                const std::vector<std::pair<uint8_t, uint8_t>>& placed_positions) {
-    // Проверка границ
+
     if (horizontal) {
         if (x + size > BOARD_SIZE)
             return false;
@@ -70,19 +66,16 @@ bool Client::is_valid_position(uint8_t x, uint8_t y, uint8_t size, bool horizont
             return false;
     }
 
-    // Проверка соседних клеток (включая угловые)
     for (int i = 0; i < size; i++) {
         int cx = horizontal ? x + i : x;
         int cy = horizontal ? y : y + i;
 
-        // Проверяем 3x3 область вокруг каждой клетки
         for (int dy = -1; dy <= 1; dy++) {
             for (int dx = -1; dx <= 1; dx++) {
                 int nx = cx + dx;
                 int ny = cy + dy;
 
                 if (nx >= 0 && nx < BOARD_SIZE && ny >= 0 && ny < BOARD_SIZE) {
-                    // Проверяем, не занята ли эта позиция другим кораблем
                     for (const auto& pos : placed_positions) {
                         if (pos.first == nx && pos.second == ny) {
                             return false;
@@ -101,18 +94,15 @@ bool Client::try_place_ship_auto(uint8_t size,
     std::uniform_int_distribution<int> dist(0, BOARD_SIZE - 1);
     std::uniform_int_distribution<int> orient_dist(0, 1);
 
-    // Пробуем разные позиции (максимум 100 попыток)
     for (int attempt = 0; attempt < 100; attempt++) {
         uint8_t x = dist(rng);
         uint8_t y = dist(rng);
         bool horizontal = orient_dist(rng) == 0;
 
-        // Для однопалубных кораблей ориентация не важна
         if (size == 1)
             horizontal = true;
 
         if (is_valid_position(x, y, size, horizontal, placed_positions)) {
-            // Размещаем корабль
             if (size == 1) {
                 placed_positions.push_back({x, y});
             } else if (horizontal) {
@@ -125,7 +115,6 @@ bool Client::try_place_ship_auto(uint8_t size,
                 }
             }
 
-            // Отправляем команду на сервер
             std::string command =
                 std::to_string(static_cast<int>(size)) + "," + std::to_string(static_cast<int>(x)) +
                 "," + std::to_string(static_cast<int>(y)) + "," + (horizontal ? "H" : "V");
@@ -141,7 +130,6 @@ bool Client::try_place_ship_auto(uint8_t size,
                 return false;
             }
 
-            // Ждем ответ
             std::string resp;
             if (!wait_for_response(resp, 1000)) {
                 std::cout << "❌ Нет ответа от сервера" << std::endl;
@@ -164,33 +152,8 @@ void Client::auto_place_ships() {
     std::cout << "  АВТОМАТИЧЕСКАЯ РАССТАНОВКА КОРАБЛЕЙ\n";
     std::cout << std::string(50, '=') << "\n";
 
-    // Улучшенная расстановка - больше расстояния между кораблями
-    std::vector<std::string> ships = {
-        "4,0,0,H", // Авианосец (4) - верхний левый
-        "3,0,5,H", // Линкор 1 (3) - правее (было 0,4)
-        "3,0,8,H", // Линкор 2 (3) - еще правее (было 0,7)
-        "2,3,0,H", // Крейсер 1 (2) - ниже первого (было 4,0)
-        "2,3,3,H", // Крейсер 2 (2) - правее (было 4,3)
-        "2,3,6,H", // Крейсер 3 (2) - еще правее (было 4,6)
-        "1,6,0,H", // Эсминец 1 (1) - ниже (было 7,0)
-        "1,6,2,H", // Эсминец 2 (1) - правее (было 7,2)
-        "1,6,4,H", // Эсминец 3 (1) - еще правее (было 7,4)
-        "1,6,6,H"  // Эсминец 4 (1) - еще правее (было 7,6)
-    };
-
-    // ИЛИ альтернативная расстановка (все корабли в разных углах):
-    // std::vector<std::string> ships = {
-    //     "4,0,0,H",      // Левый верхний угол
-    //     "3,6,0,H",      // Правый верхний
-    //     "3,0,6,V",      // Левый нижний (вертикальный)
-    //     "2,3,3,H",      // Центр
-    //     "2,7,3,H",      // Правый центр
-    //     "2,0,9,H",      // Самый низ слева
-    //     "1,9,0,H",      // Правый верхний угол
-    //     "1,9,2,H",      // Чуть ниже
-    //     "1,9,4,H",      // Еще ниже
-    //     "1,9,6,H"       // Еще ниже
-    // };
+    std::vector<std::string> ships = {"4,0,0,H", "3,0,5,H", "3,0,8,H", "2,8,8,H", "2,5,5,V",
+                                      "2,8,4,H", "1,6,0,H", "1,6,2,H", "1,3,2,H", "1,9,0,H"};
 
     int placed_ships = 0;
     int total_ships = ships.size();
@@ -213,7 +176,6 @@ void Client::auto_place_ships() {
 
         std::string resp;
         if (wait_for_response(resp, 2000)) {
-            // Исправляем проверку ответа
             if (resp.find("SHIP_PLACED") != std::string::npos ||
                 resp.find("OK") != std::string::npos ||
                 resp.find("YOUR_BOARD") != std::string::npos) {
@@ -236,7 +198,6 @@ void Client::auto_place_ships() {
     if (placed_ships == total_ships) {
         std::cout << "  ✅ Все корабли успешно размещены!\n";
 
-        // Показываем свое поле
         std::cout << "  Показываем поле...\n";
         Message board_msg;
         std::memset(&board_msg, 0, sizeof(board_msg));
@@ -295,9 +256,7 @@ bool Client::enqueue_message(const Message& m) {
 bool Client::wait_for_response(std::string& out, int timeout_ms) {
     auto start = std::chrono::steady_clock::now();
 
-    while (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                 start)
-               .count() < timeout_ms) {
+    while (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start).count() < timeout_ms) {
 
         pthread_mutex_lock(&root->mutex);
         ClientSlot* slot = my_slot();
@@ -325,11 +284,9 @@ bool Client::wait_for_response(std::string& out, int timeout_ms) {
 
 bool Client::check_for_async_messages() {
     std::string resp;
-    // Увеличьте timeout до 200ms
     if (wait_for_response(resp, 20)) {
-        std::cout << "[DEBUG] check_for_async_messages got: " 
-                  << (resp.length() > 50 ? resp.substr(0, 50) + "..." : resp)
-                  << std::endl;
+        std::cout << "[DEBUG] check_for_async_messages got: "
+                  << (resp.length() > 50 ? resp.substr(0, 50) + "..." : resp) << std::endl;
         handle_game_response(resp);
         return true;
     }
@@ -339,7 +296,6 @@ bool Client::check_for_async_messages() {
 void Client::handle_game_response(const std::string& response) {
     if (response.find("GAME_REMOVED:") == 0) {
         std::cout << "\n🗑️ " << response.substr(13) << "\n";
-        // Сбрасываем состояние клиента
         in_game = false;
         in_setup = false;
         current_game_id = -1;
@@ -347,7 +303,6 @@ void Client::handle_game_response(const std::string& response) {
         pending_invite_from.clear();
         pending_invite_id = -1;
 
-        // Также сбрасываем состояние на сервере
         ClientSlot* slot = my_slot();
         if (slot) {
             slot->current_game_id = -1;
@@ -355,15 +310,12 @@ void Client::handle_game_response(const std::string& response) {
         }
     } else if (response.find("GAME_CREATED:") == 0) {
         std::cout << "\n✅ " << response.substr(13) << "\n";
-        // Устанавливаем, что мы в игре
         in_game = true;
         in_setup = true;
 
-        // Извлекаем ID игры из ответа
         size_t id_pos = response.find("ID:");
         if (id_pos != std::string::npos) {
             std::string id_str = response.substr(id_pos + 3);
-            // Удаляем все нецифровые символы
             id_str.erase(std::remove_if(id_str.begin(), id_str.end(),
                                         [](char c) { return !std::isdigit(c); }),
                          id_str.end());
@@ -373,12 +325,9 @@ void Client::handle_game_response(const std::string& response) {
         }
     }
 
-    // Замените блок обработки INVITE_FROM_GAME на:
-    // Уберите все обработки INVITE_FROM_GAME и INVITE_FROM, оставьте только одну:
     if (response.find("INVITE:") == 0) {
         std::cout << "🎯 DEBUG: Processing invitation: " << response << std::endl;
 
-        // Простой парсинг: INVITE:отправитель:имя_игры:ID
         size_t first_colon = response.find(':');
         size_t second_colon = response.find(':', first_colon + 1);
         size_t third_colon = response.find(':', second_colon + 1);
@@ -391,7 +340,6 @@ void Client::handle_game_response(const std::string& response) {
                 response.substr(second_colon + 1, third_colon - second_colon - 1);
             std::string game_id_str = response.substr(third_colon + 1);
 
-            // Очищаем ID от лишних символов
             game_id_str.erase(std::remove_if(game_id_str.begin(), game_id_str.end(),
                                              [](char c) { return !std::isdigit(c); }),
                               game_id_str.end());
@@ -415,7 +363,6 @@ void Client::handle_game_response(const std::string& response) {
                 pending_invite_id = -1;
             }
 
-            // Показываем меню с приглашением
             show_main_menu();
         }
     } else if (response.find("OPPONENT_JOINED:") == 0) {
@@ -463,7 +410,6 @@ void Client::handle_game_response(const std::string& response) {
         }
     } else if (response.find("LEFT_GAME:") == 0) {
         std::cout << "\n🚪 " << response.substr(10) << "\n";
-        // Важно: сбрасываем состояние только здесь, после подтверждения от сервера
         in_game = false;
         in_setup = false;
         current_game_id = -1;
@@ -485,7 +431,6 @@ void Client::handle_game_response(const std::string& response) {
     }
     if (response.find("INVITE_SENT") == 0) {
         std::cout << "\n✅ " << response.substr(12) << "\n";
-        // Важно: меняем состояние на "в игре"
         in_game = true;
         in_setup = true;
         std::cout << "🎮 Вы вошли в игру. Начинайте расстановку кораблей!\n";
@@ -509,7 +454,6 @@ void Client::handle_game_response(const std::string& response) {
         in_setup = false;
         current_game_id = -1;
     } else if (!response.empty() && response.find("===") != 0) {
-        // Выводим только если это не пустая строка и не заголовок
         if (response != "\n" && response.length() > 2) {
             std::cout << "\n" << response << "\n";
         }
@@ -523,10 +467,10 @@ void Client::show_main_menu() {
     std::cout << "  2 - Создать публичную игру\n";
     std::cout << "  3 - Присоединиться к игре\n";
     std::cout << "  4 - Пригласить игрока\n";
-    std::cout << "  5 - Проверить приглашения\n"; // НОВЫЙ ПУНКТ
+    std::cout << "  5 - Проверить приглашения\n"; 
     std::cout << "  6 - Выйти\n";
 
-    // Если есть активное приглашение, показываем его
+    
     if (pending_invite_id != -1) {
         std::cout << std::string(50, '=') << "\n";
         std::cout << "  📨 АКТИВНОЕ ПРИГЛАШЕНИЕ:\n";
@@ -556,7 +500,7 @@ void Client::place_ships_interactive() {
     std::cout << "    auto - автоматическая расстановка\n";
     std::cout << "    ready - готов к игре\n";
     std::cout << "    board - посмотреть поле\n";
-    std::cout << "    invite <логин> - пригласить игрока в эту игру\n"; // НОВОЕ
+    std::cout << "    invite <логин> - пригласить игрока в эту игру\n";
     std::cout << "    menu - выйти в меню\n";
     std::cout << std::string(50, '-') << "\n";
 }
@@ -581,8 +525,7 @@ void Client::clear_response_buffer() {
     if (slot && slot->has_response) {
         std::string resp = slot->response;
         std::cout << "[DEBUG] Buffer has: " << resp << std::endl;
-        
-        // НЕ очищаем приглашения!
+
         if (resp.find("INVITE:") == 0) {
             std::cout << "[DEBUG] Keeping invitation in buffer" << std::endl;
         } else {
@@ -596,7 +539,7 @@ void Client::clear_response_buffer() {
 
 void Client::run() {
     std::cout << std::string(50, '=') << "\n";
-    std::cout << "  ДОБРО ПОЖАЛОВАТЬ В МОРСКОЙ БОЙ!\n";
+    std::cout << "  ДОБРО ПОЖАЛОВАТЬ В МОРСКОЙ ГОЙ!\n";
     std::cout << std::string(50, '=') << "\n";
     std::cout << "  Введите ваш логин: ";
     std::getline(std::cin, login);
@@ -625,19 +568,18 @@ void Client::run() {
     bool running = true;
 
     while (running) {
-        // Проверяем асинхронные сообщения
         static int check_counter = 0;
         check_counter++;
-        if (check_counter >= 10 && current_game_id != -1) { // Проверяем каждые 10 итераций
+        if (check_counter >= 10 && current_game_id != -1) {
             force_check_state();
             check_counter = 0;
         }
 
         for (int i = 0; i < 3; i++) {
-        if (check_for_async_messages()) {
-            break; // Если нашли сообщение, выходим
-        }
-        usleep(50 * 1000); // 50ms между проверками
+            if (check_for_async_messages()) {
+                break;
+            }
+            usleep(50 * 1000);
         }
 
         if (!in_game) {
@@ -726,12 +668,10 @@ void Client::run() {
                     }
                 }
             } else if (line == "4") {
-                // Создать приватную игру и пригласить игрока
                 std::cout << "\n👥 Введите логин игрока для приглашения: ";
                 std::string target;
                 std::getline(std::cin, target);
 
-                // Сначала создаем игру
                 std::string game_name = login + "_vs_" + target + "_private";
 
                 Message create_msg;
@@ -748,7 +688,6 @@ void Client::run() {
                 std::string resp;
                 if (wait_for_response(resp, 2000)) {
                     if (resp.find("GAME_CREATED") != std::string::npos) {
-                        // Игра создана, теперь приглашаем
                         Message invite_msg;
                         std::memset(&invite_msg, 0, sizeof(invite_msg));
                         std::strncpy(invite_msg.from, login.c_str(), LOGIN_MAX - 1);
@@ -761,7 +700,6 @@ void Client::run() {
                             std::string invite_resp;
                             if (wait_for_response(invite_resp, 2000)) {
                                 handle_game_response(invite_resp);
-                                // После создания игры показываем меню расстановки
                                 if (in_game && in_setup) {
                                     place_ships_interactive();
                                 }
@@ -773,19 +711,14 @@ void Client::run() {
                 }
 
             } else if (line == "5") {
-                // Проверить приглашения
                 std::cout << "\n🔄 Проверяем приглашения...\n";
 
-                // Очищаем старые ответы
-                // clear_response_buffer();
-
-                // Проверяем несколько раз подряд
                 bool found_invitation = false;
                 for (int i = 0; i < 3; i++) {
                     if (check_for_async_messages()) {
                         found_invitation = true;
                     }
-                    usleep(100 * 1000); // 100ms между проверками
+                    usleep(100 * 1000);
                 }
 
                 if (!found_invitation && pending_invite_id == -1) {
@@ -795,7 +728,6 @@ void Client::run() {
                     std::cout << "  Принять: join " << pending_invite_id << "\n";
                 }
             } else if (line == "6") {
-                // Выйти (старый пункт 5 перемещается сюда)
                 force_check_state();
 
                 std::cout << "\n🚪 Вы уверены? (да/нет): ";
@@ -844,11 +776,8 @@ void Client::run() {
                 std::cout << "\n❌ Неверная команда\n";
             }
         } else {
-            // В режиме игры
             if (in_setup) {
-                // Проверяем, не получили ли мы асинхронно инструкции по расстановке
                 if (!check_for_async_messages()) {
-                    // Если нет асинхронных сообщений, показываем меню расстановки
                     place_ships_interactive();
                 }
 
@@ -874,7 +803,6 @@ void Client::run() {
                     if (!enqueue_message(m)) {
                         std::cout << "\n❌ Очередь переполнена\n";
                     } else {
-                        // Ждем ответ от сервера
                         std::string resp;
                         if (wait_for_response(resp, 3000)) {
                             std::cout << "📥 Получен ответ от сервера\n";
@@ -901,7 +829,6 @@ void Client::run() {
                     }
                 }
 
-                // В режиме расстановки кораблей
                 else if (cmd_lower.find("invite ") == 0) {
                     std::string target = command.substr(7);
 
@@ -913,7 +840,7 @@ void Client::run() {
                     Message m;
                     std::memset(&m, 0, sizeof(m));
                     std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);
-                    m.type = MSG_INVITE_TO_GAME; // Используем новый тип
+                    m.type = MSG_INVITE_TO_GAME;
                     std::strncpy(m.payload, target.c_str(), CMD_MAX - 1);
 
                     if (!enqueue_message(m)) {
@@ -953,12 +880,9 @@ void Client::run() {
                     }
                 }
             } else {
-                // Игра в процессе (стрельба)
                 bool has_async = check_for_async_messages();
 
-                // Если есть асинхронное сообщение, показываем его и ждем следующего ввода
                 if (has_async) {
-                    // Не показываем меню сразу, ждем ввода пользователя
                     std::cout << "\nНажмите Enter для продолжения...";
                     std::string dummy;
                     std::getline(std::cin, dummy);
@@ -974,7 +898,6 @@ void Client::run() {
                     std::string shot;
                     std::getline(std::cin, shot);
 
-                    // Очищаем буфер перед отправкой
                     clear_response_buffer();
 
                     Message m;

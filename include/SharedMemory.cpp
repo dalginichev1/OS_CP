@@ -6,7 +6,6 @@ SharedMemory::SharedMemory(bool create)
 {
     bool do_create = create;
     if (do_create) {
-        // create and set size
         fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666);
         if (fd < 0) throw std::runtime_error("shm_open create failed");
         if (ftruncate(fd, sizeof(SharedMemoryRoot)) != 0) {

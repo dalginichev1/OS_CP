@@ -52,58 +52,48 @@ bool Game::is_player_in_game(const std::string& player) const {
 
 void Game::remove_player(const std::string& player) {
     if (player == std::string(game_data->player1)) {
-        // Удаляем первого игрока
         game_data->player1[0] = '\0';
         game_data->ship_count1 = 0;
         game_data->hits1 = game_data->misses1 = game_data->sunk1 = 0;
-        
-        // Очищаем поле первого игрока
+
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 game_data->board1[i][j] = CELL_EMPTY;
             }
         }
-        
-        // Очищаем корабли первого игрока
+
         for (int i = 0; i < 10; i++) {
             game_data->ships1[i] = Ship();
         }
-        
-        // Если игра была активной, переводим в ожидание
+
         if (game_data->state == GAME_ACTIVE || game_data->state == GAME_SETUP) {
             game_data->state = GAME_WAITING;
         }
     } 
     else if (player == std::string(game_data->player2)) {
-        // Удаляем второго игрока
         game_data->player2[0] = '\0';
         game_data->ship_count2 = 0;
         game_data->hits2 = game_data->misses2 = game_data->sunk2 = 0;
-        
-        // Очищаем поле второго игрока
+
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 game_data->board2[i][j] = CELL_EMPTY;
             }
         }
-        
-        // Очищаем корабли второго игрока
+
         for (int i = 0; i < 10; i++) {
             game_data->ships2[i] = Ship();
         }
-        
-        // Если игра была активной, переводим в ожидание
+
         if (game_data->state == GAME_ACTIVE || game_data->state == GAME_SETUP) {
             game_data->state = GAME_WAITING;
         }
     }
-    
-    // Если остался только один игрок, сбрасываем состояние
+
     if (has_only_one_player()) {
         game_data->current_turn[0] = '\0';
     }
-    
-    // Если не осталось игроков, помечаем игру как неиспользуемую
+
     if (game_data->player1[0] == '\0' && game_data->player2[0] == '\0') {
         game_data->used = false;
     }
@@ -135,13 +125,11 @@ int Game::get_id() const {
 }
 
 bool Game::join(const std::string& player2) {
-    // Проверяем, не является ли игрок уже участником
     if (std::string(game_data->player1) == player2 || 
         std::string(game_data->player2) == player2) {
         return false;
     }
-    
-    // Определяем, в какое место поставить игрока
+
     if (game_data->player1[0] == '\0') {
         std::strncpy(game_data->player1, player2.c_str(), LOGIN_MAX - 1);
     } else if (game_data->player2[0] == '\0') {
@@ -149,8 +137,7 @@ bool Game::join(const std::string& player2) {
     } else {
         return false; // Оба места заняты
     }
-    
-    // Если теперь в игре 2 игрока, переводим в режим расстановки
+
     if (game_data->player1[0] != '\0' && game_data->player2[0] != '\0') {
         game_data->state = GAME_SETUP;
     }
@@ -170,10 +157,8 @@ bool Game::can_place_ship(uint8_t size, uint8_t x, uint8_t y, bool horizontal,
         std::cout << "DEBUG: Coordinates out of bounds" << std::endl;
         return false;
     }
-    
-    // Для однопалубного корабля (size == 1)
+
     if (size == 1) {
-        // Просто проверяем клетку и вокруг
         for (int dy = -1; dy <= 1; dy++) {
             for (int dx = -1; dx <= 1; dx++) {
                 int nx = x + dx;
@@ -188,14 +173,12 @@ bool Game::can_place_ship(uint8_t size, uint8_t x, uint8_t y, bool horizontal,
         }
         return true;
     }
-    
-    // Для многопалубных кораблей (size >= 2)
+
     if (horizontal) {
         if (x + size > BOARD_SIZE) {
             std::cout << "DEBUG: Ship goes beyond right border" << std::endl;
             return false;
         }
-        // Проверяем клетки и соседние
         for (int i = 0; i < size; i++) {
             for (int dy = -1; dy <= 1; dy++) {
                 for (int dx = -1; dx <= 1; dx++) {
@@ -244,10 +227,8 @@ void Game::place_ship_on_board(uint8_t size, uint8_t x, uint8_t y, bool horizont
     ship.start_x = x;
     ship.start_y = y;
     ship.sunk = false;
-    
-    // Размещение на поле
+
     if (size == 1) {
-        // Однопалубный корабль
         board[y][x] = CELL_SHIP;
     } else if (horizontal) {
         for (int i = 0; i < size; i++) {
@@ -264,13 +245,11 @@ void Game::place_ship_on_board(uint8_t size, uint8_t x, uint8_t y, bool horizont
 }
 
 bool Game::place_ship(const std::string& player, uint8_t size, uint8_t x, uint8_t y, bool horizontal) {
-    // Разрешаем размещение в состояниях WAITING и SETUP
     if (game_data->state != GAME_WAITING && game_data->state != GAME_SETUP) {
         std::cout << "DEBUG: Wrong game state: " << (int)game_data->state << std::endl;
         return false;
     }
-    
-    // Проверяем допустимость размера корабля
+
     bool valid_size = false;
     int required_count = 0;
     
@@ -289,8 +268,7 @@ bool Game::place_ship(const std::string& player, uint8_t size, uint8_t x, uint8_
     if (size == 1) {
         horizontal = true; 
     }
-    
-    // Определяем, какой игрок размещает корабль
+
     uint8_t current_count = 0;
     Ship* ships = nullptr;
     uint8_t* ship_count = nullptr;
@@ -310,8 +288,7 @@ bool Game::place_ship(const std::string& player, uint8_t size, uint8_t x, uint8_
         std::cout << "DEBUG: Unknown player: " << player << std::endl;
         return false;
     }
-    
-    // Проверяем, не превышен ли лимит кораблей данного типа
+
     for (int i = 0; i < *ship_count; i++) {
         if (ships[i].size == size) current_count++;
     }
@@ -321,21 +298,18 @@ bool Game::place_ship(const std::string& player, uint8_t size, uint8_t x, uint8_
                   << " (have " << current_count << ", need " << required_count << ")" << std::endl;
         return false;
     }
-    
-    // Проверяем возможность размещения
+
     if (!can_place_ship(size, x, y, horizontal, board)) {
         std::cout << "DEBUG: Cannot place ship at " << (int)x << "," << (int)y 
                   << " size " << (int)size << (horizontal ? "H" : "V") << std::endl;
         return false;
     }
-    
-    // Размещаем корабль
+
     place_ship_on_board(size, x, y, horizontal, board, ships, *ship_count);
     
     std::cout << "DEBUG: Ship placed successfully. Player " << player 
               << " now has " << (int)*ship_count << " ships" << std::endl;
-    
-    // Если это первый корабль и игра в состоянии WAITING, меняем на SETUP
+
     if (game_data->state == GAME_WAITING) {
         game_data->state = GAME_SETUP;
         std::cout << "DEBUG: Game state changed to SETUP" << std::endl;
@@ -427,8 +401,7 @@ bool Game::make_shot(const std::string& shooter, uint8_t x, uint8_t y) {
     }
     
     hit = check_hit(x, y, target_board, target_ships, target_ship_count, sunk, sunk_ship_index);
-    
-    // УБЕДИТЕСЬ, ЧТО ЭТА ЧАСТЬ КОДА ВЫПОЛНЯЕТСЯ:
+
     if (is_player1) {
         if (hit) {
             game_data->hits1++;
@@ -458,7 +431,6 @@ bool Game::make_shot(const std::string& shooter, uint8_t x, uint8_t y) {
     } else if (!hit) {
         switch_turn();
     } else {
-        // Если попали, но не потопили корабль, ход остается у того же игрока
         std::cout << "DEBUG: Hit but not sunk, shooter gets another turn" << std::endl;
     }
     
