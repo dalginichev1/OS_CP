@@ -1,0 +1,398 @@
+274130 execve("./parent", ["./parent"], 0x7ffcd3e49d68 /* 36 vars */) = 0
+274130 brk(NULL)                        = 0x63bd01b85000
+274130 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x79c2f692d000
+274130 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+274130 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+274130 fstat(3, {st_mode=S_IFREG|0644, st_size=33163, ...}) = 0
+274130 mmap(NULL, 33163, PROT_READ, MAP_PRIVATE, 3, 0) = 0x79c2f6924000
+274130 close(3)                         = 0
+274130 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = 3
+274130 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+274130 fstat(3, {st_mode=S_IFREG|0644, st_size=2592224, ...}) = 0
+274130 mmap(NULL, 2609472, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x79c2f6600000
+274130 mmap(0x79c2f669d000, 1343488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x9d000) = 0x79c2f669d000
+274130 mmap(0x79c2f67e5000, 552960, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e5000) = 0x79c2f67e5000
+274130 mmap(0x79c2f686c000, 57344, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26b000) = 0x79c2f686c000
+274130 mmap(0x79c2f687a000, 12608, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x79c2f687a000
+274130 close(3)                         = 0
+274130 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
+274130 read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+274130 fstat(3, {st_mode=S_IFREG|0644, st_size=183024, ...}) = 0
+274130 mmap(NULL, 185256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x79c2f68f6000
+274130 mmap(0x79c2f68fa000, 147456, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4000) = 0x79c2f68fa000
+274130 mmap(0x79c2f691e000, 16384, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x79c2f691e000
+274130 mmap(0x79c2f6922000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2b000) = 0x79c2f6922000
+274130 close(3)                         = 0
+274130 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+274130 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+274130 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+274130 fstat(3, {st_mode=S_IFREG|0755, st_size=2125328, ...}) = 0
+274130 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+274130 mmap(NULL, 2170256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x79c2f6200000
+274130 mmap(0x79c2f6228000, 1605632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x79c2f6228000
+274130 mmap(0x79c2f63b0000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b0000) = 0x79c2f63b0000
+274130 mmap(0x79c2f63ff000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1fe000) = 0x79c2f63ff000
+274130 mmap(0x79c2f6405000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x79c2f6405000
+274130 close(3)                         = 0
+274130 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+274130 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+274130 fstat(3, {st_mode=S_IFREG|0644, st_size=952616, ...}) = 0
+274130 mmap(NULL, 950296, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x79c2f6517000
+274130 mmap(0x79c2f6527000, 520192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x10000) = 0x79c2f6527000
+274130 mmap(0x79c2f65a6000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8f000) = 0x79c2f65a6000
+274130 mmap(0x79c2f65fe000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xe7000) = 0x79c2f65fe000
+274130 close(3)                         = 0
+274130 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x79c2f68f4000
+274130 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x79c2f68f1000
+274130 arch_prctl(ARCH_SET_FS, 0x79c2f68f1740) = 0
+274130 set_tid_address(0x79c2f68f1a10)  = 274130
+274130 set_robust_list(0x79c2f68f1a20, 24) = 0
+274130 rseq(0x79c2f68f2060, 0x20, 0, 0x53053053) = 0
+274130 mprotect(0x79c2f63ff000, 16384, PROT_READ) = 0
+274130 mprotect(0x79c2f65fe000, 4096, PROT_READ) = 0
+274130 mprotect(0x79c2f6922000, 4096, PROT_READ) = 0
+274130 mprotect(0x79c2f686c000, 45056, PROT_READ) = 0
+274130 mprotect(0x63bcc532c000, 4096, PROT_READ) = 0
+274130 mprotect(0x79c2f6965000, 8192, PROT_READ) = 0
+274130 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+274130 munmap(0x79c2f6924000, 33163)    = 0
+274130 futex(0x79c2f687a7bc, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+274130 getrandom("\x2c\x58\x54\xd0\x53\xf6\x8a\x94", 8, GRND_NONBLOCK) = 8
+274130 brk(NULL)                        = 0x63bd01b85000
+274130 brk(0x63bd01ba6000)              = 0x63bd01ba6000
+274130 fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x5), ...}) = 0
+274130 write(1, "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \320\270\320\274\321\217 \321\204\320\260\320\271\320\273\320\260"..., 48) = 48
+274130 fstat(0, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x5), ...}) = 0
+274130 read(0, "file1\n", 1024)         = 6
+274130 write(1, "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \320\270\320\274\321\217 \321\204\320\260\320\271\320\273\320\260"..., 48) = 48
+274130 read(0, "file2\n", 1024)         = 6
+274130 pipe2([3, 4], 0)                 = 0
+274130 pipe2([5, 6], 0)                 = 0
+274130 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x79c2f68f1a10) = 274150
+274150 set_robust_list(0x79c2f68f1a20, 24 <unfinished ...>
+274130 close(3 <unfinished ...>
+274150 <... set_robust_list resumed>)   = 0
+274130 <... close resumed>)             = 0
+274150 close(4 <unfinished ...>
+274130 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD <unfinished ...>
+274150 <... close resumed>)             = 0
+274150 execve("./child", ["./child", "child1", "file1", "3"], 0x7ffd73be59b8 /* 36 vars */ <unfinished ...>
+274130 <... clone resumed>, child_tidptr=0x79c2f68f1a10) = 274151
+274130 close(5 <unfinished ...>
+274151 set_robust_list(0x79c2f68f1a20, 24 <unfinished ...>
+274130 <... close resumed>)             = 0
+274151 <... set_robust_list resumed>)   = 0
+274130 close(3 <unfinished ...>
+274150 <... execve resumed>)            = 0
+274130 <... close resumed>)             = -1 EBADF (Bad file descriptor)
+274151 close(6 <unfinished ...>
+274150 brk(NULL <unfinished ...>
+274130 close(5 <unfinished ...>
+274151 <... close resumed>)             = 0
+274150 <... brk resumed>)               = 0x575e53eab000
+274130 <... close resumed>)             = -1 EBADF (Bad file descriptor)
+274151 execve("./child", ["./child", "child2", "file2", "5"], 0x7ffd73be59b8 /* 36 vars */ <unfinished ...>
+274150 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+274130 read(0,  <unfinished ...>
+274150 <... mmap resumed>)              = 0x709cf5de7000
+274150 access("/etc/ld.so.preload", R_OK <unfinished ...>
+274151 <... execve resumed>)            = 0
+274150 <... access resumed>)            = -1 ENOENT (No such file or directory)
+274151 brk(NULL <unfinished ...>
+274150 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+274151 <... brk resumed>)               = 0x5cc3d829f000
+274150 <... openat resumed>)            = 4
+274150 fstat(4,  <unfinished ...>
+274151 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x77760c0ae000
+274150 <... fstat resumed>{st_mode=S_IFREG|0644, st_size=33163, ...}) = 0
+274151 access("/etc/ld.so.preload", R_OK <unfinished ...>
+274150 mmap(NULL, 33163, PROT_READ, MAP_PRIVATE, 4, 0 <unfinished ...>
+274151 <... access resumed>)            = -1 ENOENT (No such file or directory)
+274150 <... mmap resumed>)              = 0x709cf5dde000
+274151 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+274150 close(4 <unfinished ...>
+274151 <... openat resumed>)            = 3
+274150 <... close resumed>)             = 0
+274151 fstat(3,  <unfinished ...>
+274150 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libstdc++.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+274151 <... fstat resumed>{st_mode=S_IFREG|0644, st_size=33163, ...}) = 0
+274150 <... openat resumed>)            = 4
+274151 mmap(NULL, 33163, PROT_READ, MAP_PRIVATE, 3, 0 <unfinished ...>
+274150 read(4,  <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760c0a5000
+274150 <... read resumed>"\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+274151 close(3)                         = 0
+274150 fstat(4,  <unfinished ...>
+274151 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libstdc++.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+274150 <... fstat resumed>{st_mode=S_IFREG|0644, st_size=2592224, ...}) = 0
+274151 <... openat resumed>)            = 3
+274150 mmap(NULL, 2609472, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 4, 0 <unfinished ...>
+274151 read(3,  <unfinished ...>
+274150 <... mmap resumed>)              = 0x709cf5a00000
+274151 <... read resumed>"\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+274150 mmap(0x709cf5a9d000, 1343488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x9d000 <unfinished ...>
+274151 fstat(3,  <unfinished ...>
+274150 <... mmap resumed>)              = 0x709cf5a9d000
+274151 <... fstat resumed>{st_mode=S_IFREG|0644, st_size=2592224, ...}) = 0
+274150 mmap(0x709cf5be5000, 552960, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x1e5000 <unfinished ...>
+274151 mmap(NULL, 2609472, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0 <unfinished ...>
+274150 <... mmap resumed>)              = 0x709cf5be5000
+274151 <... mmap resumed>)              = 0x77760be00000
+274150 mmap(0x709cf5c6c000, 57344, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x26b000 <unfinished ...>
+274151 mmap(0x77760be9d000, 1343488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x9d000 <unfinished ...>
+274150 <... mmap resumed>)              = 0x709cf5c6c000
+274151 <... mmap resumed>)              = 0x77760be9d000
+274150 mmap(0x709cf5c7a000, 12608, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+274151 mmap(0x77760bfe5000, 552960, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e5000 <unfinished ...>
+274150 <... mmap resumed>)              = 0x709cf5c7a000
+274151 <... mmap resumed>)              = 0x77760bfe5000
+274150 close(4 <unfinished ...>
+274151 mmap(0x77760c06c000, 57344, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26b000 <unfinished ...>
+274150 <... close resumed>)             = 0
+274151 <... mmap resumed>)              = 0x77760c06c000
+274150 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC <unfinished ...>
+274151 mmap(0x77760c07a000, 12608, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+274150 <... openat resumed>)            = 4
+274151 <... mmap resumed>)              = 0x77760c07a000
+274150 read(4,  <unfinished ...>
+274151 close(3 <unfinished ...>
+274150 <... read resumed>"\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+274151 <... close resumed>)             = 0
+274150 fstat(4,  <unfinished ...>
+274151 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC <unfinished ...>
+274150 <... fstat resumed>{st_mode=S_IFREG|0644, st_size=183024, ...}) = 0
+274151 <... openat resumed>)            = 3
+274151 read(3,  <unfinished ...>
+274150 mmap(NULL, 185256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 4, 0 <unfinished ...>
+274151 <... read resumed>"\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+274150 <... mmap resumed>)              = 0x709cf5db0000
+274151 fstat(3,  <unfinished ...>
+274150 mmap(0x709cf5db4000, 147456, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x4000 <unfinished ...>
+274151 <... fstat resumed>{st_mode=S_IFREG|0644, st_size=183024, ...}) = 0
+274150 <... mmap resumed>)              = 0x709cf5db4000
+274151 mmap(NULL, 185256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0 <unfinished ...>
+274150 mmap(0x709cf5dd8000, 16384, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x28000 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bdd2000
+274150 <... mmap resumed>)              = 0x709cf5dd8000
+274151 mmap(0x77760bdd6000, 147456, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4000 <unfinished ...>
+274150 mmap(0x709cf5ddc000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x2b000 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bdd6000
+274150 <... mmap resumed>)              = 0x709cf5ddc000
+274151 mmap(0x77760bdfa000, 16384, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000 <unfinished ...>
+274150 close(4 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bdfa000
+274150 <... close resumed>)             = 0
+274151 mmap(0x77760bdfe000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2b000 <unfinished ...>
+274150 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bdfe000
+274150 <... openat resumed>)            = 4
+274151 close(3 <unfinished ...>
+274150 read(4,  <unfinished ...>
+274151 <... close resumed>)             = 0
+274150 <... read resumed>"\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+274151 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+274150 pread64(4,  <unfinished ...>
+274151 <... openat resumed>)            = 3
+274150 <... pread64 resumed>"\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+274151 read(3,  <unfinished ...>
+274150 fstat(4,  <unfinished ...>
+274151 <... read resumed>"\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+274150 <... fstat resumed>{st_mode=S_IFREG|0755, st_size=2125328, ...}) = 0
+274151 pread64(3,  <unfinished ...>
+274150 pread64(4,  <unfinished ...>
+274151 <... pread64 resumed>"\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+274150 <... pread64 resumed>"\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+274151 fstat(3,  <unfinished ...>
+274150 mmap(NULL, 2170256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 4, 0 <unfinished ...>
+274151 <... fstat resumed>{st_mode=S_IFREG|0755, st_size=2125328, ...}) = 0
+274150 <... mmap resumed>)              = 0x709cf5600000
+274151 pread64(3,  <unfinished ...>
+274150 mmap(0x709cf5628000, 1605632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x28000 <unfinished ...>
+274151 <... pread64 resumed>"\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+274150 <... mmap resumed>)              = 0x709cf5628000
+274151 mmap(NULL, 2170256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0 <unfinished ...>
+274150 mmap(0x709cf57b0000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x1b0000 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760ba00000
+274150 <... mmap resumed>)              = 0x709cf57b0000
+274151 mmap(0x77760ba28000, 1605632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000 <unfinished ...>
+274150 mmap(0x709cf57ff000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x1fe000 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760ba28000
+274150 <... mmap resumed>)              = 0x709cf57ff000
+274151 mmap(0x77760bbb0000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b0000 <unfinished ...>
+274150 mmap(0x709cf5805000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bbb0000
+274150 <... mmap resumed>)              = 0x709cf5805000
+274151 mmap(0x77760bbff000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1fe000 <unfinished ...>
+274150 close(4 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bbff000
+274150 <... close resumed>)             = 0
+274151 mmap(0x77760bc05000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+274150 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bc05000
+274150 <... openat resumed>)            = 4
+274151 close(3 <unfinished ...>
+274150 read(4,  <unfinished ...>
+274151 <... close resumed>)             = 0
+274150 <... read resumed>"\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+274151 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+274150 fstat(4,  <unfinished ...>
+274151 <... openat resumed>)            = 3
+274150 <... fstat resumed>{st_mode=S_IFREG|0644, st_size=952616, ...}) = 0
+274151 read(3,  <unfinished ...>
+274150 mmap(NULL, 950296, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 4, 0 <unfinished ...>
+274151 <... read resumed>"\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+274150 <... mmap resumed>)              = 0x709cf5cc7000
+274151 fstat(3,  <unfinished ...>
+274150 mmap(0x709cf5cd7000, 520192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x10000 <unfinished ...>
+274151 <... fstat resumed>{st_mode=S_IFREG|0644, st_size=952616, ...}) = 0
+274150 <... mmap resumed>)              = 0x709cf5cd7000
+274151 mmap(NULL, 950296, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0 <unfinished ...>
+274150 mmap(0x709cf5d56000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0x8f000 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bce9000
+274150 <... mmap resumed>)              = 0x709cf5d56000
+274151 mmap(0x77760bcf9000, 520192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x10000 <unfinished ...>
+274150 mmap(0x709cf5dae000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 4, 0xe7000 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bcf9000
+274150 <... mmap resumed>)              = 0x709cf5dae000
+274151 mmap(0x77760bd78000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8f000 <unfinished ...>
+274150 close(4 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bd78000
+274150 <... close resumed>)             = 0
+274151 mmap(0x77760bdd0000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xe7000 <unfinished ...>
+274150 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760bdd0000
+274150 <... mmap resumed>)              = 0x709cf5cc5000
+274151 close(3 <unfinished ...>
+274150 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+274151 <... close resumed>)             = 0
+274150 <... mmap resumed>)              = 0x709cf5cc2000
+274151 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+274150 arch_prctl(ARCH_SET_FS, 0x709cf5cc2740 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760c0a3000
+274150 <... arch_prctl resumed>)        = 0
+274151 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+274150 set_tid_address(0x709cf5cc2a10 <unfinished ...>
+274151 <... mmap resumed>)              = 0x77760c0a0000
+274150 <... set_tid_address resumed>)   = 274150
+274151 arch_prctl(ARCH_SET_FS, 0x77760c0a0740 <unfinished ...>
+274150 set_robust_list(0x709cf5cc2a20, 24 <unfinished ...>
+274151 <... arch_prctl resumed>)        = 0
+274150 <... set_robust_list resumed>)   = 0
+274151 set_tid_address(0x77760c0a0a10 <unfinished ...>
+274150 rseq(0x709cf5cc3060, 0x20, 0, 0x53053053 <unfinished ...>
+274151 <... set_tid_address resumed>)   = 274151
+274150 <... rseq resumed>)              = 0
+274151 set_robust_list(0x77760c0a0a20, 24) = 0
+274150 mprotect(0x709cf57ff000, 16384, PROT_READ <unfinished ...>
+274151 rseq(0x77760c0a1060, 0x20, 0, 0x53053053 <unfinished ...>
+274150 <... mprotect resumed>)          = 0
+274151 <... rseq resumed>)              = 0
+274150 mprotect(0x709cf5dae000, 4096, PROT_READ <unfinished ...>
+274151 mprotect(0x77760bbff000, 16384, PROT_READ <unfinished ...>
+274150 <... mprotect resumed>)          = 0
+274151 <... mprotect resumed>)          = 0
+274150 mprotect(0x709cf5ddc000, 4096, PROT_READ <unfinished ...>
+274151 mprotect(0x77760bdd0000, 4096, PROT_READ <unfinished ...>
+274150 <... mprotect resumed>)          = 0
+274151 <... mprotect resumed>)          = 0
+274151 mprotect(0x77760bdfe000, 4096, PROT_READ) = 0
+274150 mprotect(0x709cf5c6c000, 45056, PROT_READ) = 0
+274151 mprotect(0x77760c06c000, 45056, PROT_READ <unfinished ...>
+274150 mprotect(0x575e22ada000, 4096, PROT_READ <unfinished ...>
+274151 <... mprotect resumed>)          = 0
+274150 <... mprotect resumed>)          = 0
+274151 mprotect(0x5cc39ee78000, 4096, PROT_READ <unfinished ...>
+274150 mprotect(0x709cf5e1f000, 8192, PROT_READ <unfinished ...>
+274151 <... mprotect resumed>)          = 0
+274150 <... mprotect resumed>)          = 0
+274151 mprotect(0x77760c0e6000, 8192, PROT_READ <unfinished ...>
+274150 prlimit64(0, RLIMIT_STACK, NULL,  <unfinished ...>
+274151 <... mprotect resumed>)          = 0
+274150 <... prlimit64 resumed>{rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+274151 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+274150 munmap(0x709cf5dde000, 33163 <unfinished ...>
+274151 munmap(0x77760c0a5000, 33163 <unfinished ...>
+274150 <... munmap resumed>)            = 0
+274151 <... munmap resumed>)            = 0
+274150 futex(0x709cf5c7a7bc, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+274151 futex(0x77760c07a7bc, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+274150 getrandom("\xcd\xa7\x97\x3c\x1d\x9a\xd8\x81", 8, GRND_NONBLOCK) = 8
+274151 getrandom( <unfinished ...>
+274150 brk(NULL <unfinished ...>
+274151 <... getrandom resumed>"\xf5\x9d\xac\xba\x11\xff\xdd\xc4", 8, GRND_NONBLOCK) = 8
+274150 <... brk resumed>)               = 0x575e53eab000
+274151 brk(NULL <unfinished ...>
+274150 brk(0x575e53ecc000 <unfinished ...>
+274151 <... brk resumed>)               = 0x5cc3d829f000
+274150 <... brk resumed>)               = 0x575e53ecc000
+274151 brk(0x5cc3d82c0000)              = 0x5cc3d82c0000
+274150 fstat(1,  <unfinished ...>
+274151 fstat(1,  <unfinished ...>
+274150 <... fstat resumed>{st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x5), ...}) = 0
+274151 <... fstat resumed>{st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x5), ...}) = 0
+274150 write(1, "child1: \320\267\320\260\320\277\321\203\321\211\320\265\320\275 \321\201 \321\204\320\260\320\271"..., 45 <unfinished ...>
+274151 write(1, "child2: \320\267\320\260\320\277\321\203\321\211\320\265\320\275 \321\201 \321\204\320\260\320\271"..., 45 <unfinished ...>
+274150 <... write resumed>)             = 45
+274151 <... write resumed>)             = 45
+274150 openat(AT_FDCWD, "file1", O_WRONLY|O_CREAT|O_TRUNC, 0644 <unfinished ...>
+274151 openat(AT_FDCWD, "file2", O_WRONLY|O_CREAT|O_TRUNC, 0644) = 3
+274150 <... openat resumed>)            = 4
+274151 read(5,  <unfinished ...>
+274150 read(3,  <unfinished ...>
+274130 <... read resumed>"hello\n", 1024) = 6
+274130 write(4, "hello", 5)             = 5
+274150 <... read resumed>"hello", 255)  = 5
+274130 write(4, "\n", 1 <unfinished ...>
+274150 write(4, "olleh", 5 <unfinished ...>
+274130 <... write resumed>)             = 1
+274150 <... write resumed>)             = 5
+274130 read(0,  <unfinished ...>
+274150 read(3, "\n", 255)               = 1
+274150 write(4, "\n", 1)                = 1
+274150 read(3,  <unfinished ...>
+274130 <... read resumed>"rabbit\n", 1024) = 7
+274130 write(6, "rabbit", 6)            = 6
+274151 <... read resumed>"rabbit", 255) = 6
+274130 write(6, "\n", 1)                = 1
+274151 write(3, "tibbar", 6 <unfinished ...>
+274130 read(0,  <unfinished ...>
+274151 <... write resumed>)             = 6
+274151 read(5, "\n", 255)               = 1
+274151 write(3, "\n", 1)                = 1
+274151 read(5,  <unfinished ...>
+274130 <... read resumed>"dig\n", 1024) = 4
+274130 write(4, "dig", 3)               = 3
+274150 <... read resumed>"dig", 255)    = 3
+274130 write(4, "\n", 1 <unfinished ...>
+274150 write(4, "gid", 3 <unfinished ...>
+274130 <... write resumed>)             = 1
+274150 <... write resumed>)             = 3
+274130 read(0,  <unfinished ...>
+274150 read(3, "\n", 255)               = 1
+274150 write(4, "\n", 1)                = 1
+274150 read(3,  <unfinished ...>
+274130 <... read resumed>"big\n", 1024) = 4
+274130 write(6, "big", 3)               = 3
+274151 <... read resumed>"big", 255)    = 3
+274130 write(6, "\n", 1 <unfinished ...>
+274151 write(3, "gib", 3 <unfinished ...>
+274130 <... write resumed>)             = 1
+274151 <... write resumed>)             = 3
+274130 read(0,  <unfinished ...>
+274151 read(5, "\n", 255)               = 1
+274151 write(3, "\n", 1)                = 1
+274151 read(5,  <unfinished ...>
+274130 <... read resumed>0x63bd01b976c0, 1024) = ? ERESTARTSYS (To be restarted if SA_RESTART is set)
+274151 <... read resumed>0x7fffcc9869d0, 255) = ? ERESTARTSYS (To be restarted if SA_RESTART is set)
+274150 <... read resumed>0x7ffc28419ee0, 255) = ? ERESTARTSYS (To be restarted if SA_RESTART is set)
+274130 --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+274151 --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+274150 --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
+274130 +++ killed by SIGINT +++
+274151 +++ killed by SIGINT +++
+274150 +++ 273892 <... read resumed>0x7ffe3cf07800, 255) = ? ERESTARTSYS (To be restarted if SA_RESTART is set)
+273891 <... read resumed>0x7ffc2e855300, 255) = ? ERESTARTSYS (To be restarted if SA_RESTART is set)
+273891 --- SIGHUP {si_signo=SIGHUP, si_code=SI_USER, si_pid=1119, si_uid=1000} ---
+273892 --- SIGHUP {si_signo=SIGHUP, si_code=SI_USER, si_pid=1119, si_uid=1000} ---
+273891 +++ killed by SIGHUP +++
+273892 +++ killed by SIGHUP +++
