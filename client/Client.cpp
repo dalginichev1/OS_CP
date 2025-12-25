@@ -10,7 +10,7 @@
 
 Client::Client()
     : shm(false), root(shm.root()), current_game_id(-1), in_game(false), in_setup(false),
-      pending_invite_id(-1), rng(std::random_device{}()) { // Инициализация генератора
+      pending_invite_id(-1), rng(std::random_device{}()) {
     if (!root)
         throw std::runtime_error("Cannot open shared memory; run server first");
 }
@@ -55,8 +55,7 @@ void Client::force_check_state() {
     }
 }
 
-bool Client::is_valid_position(uint8_t x, uint8_t y, uint8_t size, bool horizontal,
-                               const std::vector<std::pair<uint8_t, uint8_t>>& placed_positions) {
+bool Client::is_valid_position(uint8_t x, uint8_t y, uint8_t size, bool horizontal, const std::vector<std::pair<uint8_t, uint8_t>>& placed_positions) {
 
     if (horizontal) {
         if (x + size > BOARD_SIZE)
@@ -87,64 +86,6 @@ bool Client::is_valid_position(uint8_t x, uint8_t y, uint8_t size, bool horizont
     }
 
     return true;
-}
-
-bool Client::try_place_ship_auto(uint8_t size,
-                                 std::vector<std::pair<uint8_t, uint8_t>>& placed_positions) {
-    std::uniform_int_distribution<int> dist(0, BOARD_SIZE - 1);
-    std::uniform_int_distribution<int> orient_dist(0, 1);
-
-    for (int attempt = 0; attempt < 100; attempt++) {
-        uint8_t x = dist(rng);
-        uint8_t y = dist(rng);
-        bool horizontal = orient_dist(rng) == 0;
-
-        if (size == 1)
-            horizontal = true;
-
-        if (is_valid_position(x, y, size, horizontal, placed_positions)) {
-            if (size == 1) {
-                placed_positions.push_back({x, y});
-            } else if (horizontal) {
-                for (int i = 0; i < size; i++) {
-                    placed_positions.push_back({x + i, y});
-                }
-            } else {
-                for (int i = 0; i < size; i++) {
-                    placed_positions.push_back({x, y + i});
-                }
-            }
-
-            std::string command =
-                std::to_string(static_cast<int>(size)) + "," + std::to_string(static_cast<int>(x)) +
-                "," + std::to_string(static_cast<int>(y)) + "," + (horizontal ? "H" : "V");
-
-            Message m;
-            std::memset(&m, 0, sizeof(m));
-            std::strncpy(m.from, login.c_str(), LOGIN_MAX - 1);
-            m.type = MSG_PLACE_SHIP;
-            std::strncpy(m.payload, command.c_str(), CMD_MAX - 1);
-
-            if (!enqueue_message(m)) {
-                std::cout << "❌ Очередь переполнена при авторасстановке" << std::endl;
-                return false;
-            }
-
-            std::string resp;
-            if (!wait_for_response(resp, 1000)) {
-                std::cout << "❌ Нет ответа от сервера" << std::endl;
-                return false;
-            }
-
-            if (resp.find("SHIP_PLACED") == std::string::npos &&
-                resp.find("SHIP_ERROR") == std::string::npos) {
-                std::cout << "✅ Корабль размещен: " << command << std::endl;
-                return true;
-            }
-        }
-    }
-
-    return false;
 }
 
 void Client::auto_place_ships() {
@@ -256,7 +197,9 @@ bool Client::enqueue_message(const Message& m) {
 bool Client::wait_for_response(std::string& out, int timeout_ms) {
     auto start = std::chrono::steady_clock::now();
 
-    while (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start).count() < timeout_ms) {
+    while (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+                                                                 start)
+               .count() < timeout_ms) {
 
         pthread_mutex_lock(&root->mutex);
         ClientSlot* slot = my_slot();
@@ -467,10 +410,9 @@ void Client::show_main_menu() {
     std::cout << "  2 - Создать публичную игру\n";
     std::cout << "  3 - Присоединиться к игре\n";
     std::cout << "  4 - Пригласить игрока\n";
-    std::cout << "  5 - Проверить приглашения\n"; 
+    std::cout << "  5 - Проверить приглашения\n";
     std::cout << "  6 - Выйти\n";
 
-    
     if (pending_invite_id != -1) {
         std::cout << std::string(50, '=') << "\n";
         std::cout << "  📨 АКТИВНОЕ ПРИГЛАШЕНИЕ:\n";
@@ -735,8 +677,7 @@ void Client::run() {
                 std::getline(std::cin, confirm);
 
                 std::string confirm_lower = confirm;
-                std::transform(confirm_lower.begin(), confirm_lower.end(), confirm_lower.begin(),
-                               ::tolower);
+                std::transform(confirm_lower.begin(), confirm_lower.end(), confirm_lower.begin(), ::tolower);
 
                 if (confirm_lower == "да" || confirm_lower == "y" || confirm_lower == "yes" ||
                     confirm_lower == "д") {

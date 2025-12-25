@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.2)  12 DEC 2025 16:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.2)  25 DEC 2025 13:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1810,14 +1810,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-di
 st/fonts/enc/dvips/tempora/t2b-tempora.enc}]) (./src/problem.tex
 LaTeX Font Info:    Trying to load font information for TS1+Tempora-TLF on inpu
-t line 3.
+t line 4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/tempora/TS1Tempora-TLF.fd
 File: TS1Tempora-TLF.fd 2016/02/02 (autoinst) Font definitions for TS1/Tempora-
 TLF.
 )
 LaTeX Font Info:    Font shape `TS1/Tempora-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 3.
+(Font)              scaled to size 12.0pt on input line 4.
 )
 (./src/src.tex
 LaTeX Font Info:    Trying to load font information for T2B+cmtt on input line 
@@ -2047,41 +2047,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.129                 std::cout << "❌ 
-                                        Очередь переполнен�...
-
-? 
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.135                 std::cout << "❌ 
-                                        Нет ответа от серве�...
-
-? 
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.141                 std::cout << "✅ 
-                                        Корабль размещен: " <...
-
-? 
-[41]
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.173             std::cout << "❌ 
+l.114             std::cout << "❌ 
                                     Очередь переполнена\n";
 ? 
 
@@ -2091,7 +2057,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.183                 std::cout << "✅ 
+l.124                 std::cout << "✅ 
                                         Успешно\n";
 ? 
 
@@ -2101,7 +2067,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.185                 std::cout << "❌ 
+l.126                 std::cout << "❌ 
                                         Ошибка: " << resp.substr(0, 50...
 
 ? 
@@ -2112,7 +2078,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.188             std::cout << "❌ 
+l.129             std::cout << "❌ 
                                     Нет ответа от сервера\n";
 
 ? 
@@ -2123,11 +2089,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.199         std::cout << "  ✅ 
+l.140         std::cout << "  ✅ 
                                   Все корабли успешно ра�...
 
 ? 
-[42]
+[41]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2135,7 +2101,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.218         std::cout << "  ⚠️ 
+l.159         std::cout << "  ⚠️ 
                                       Не все корабли удало�...
 
 ? 
@@ -2146,11 +2112,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.218         std::cout << "  ⚠️ 
+l.159         std::cout << "  ⚠️ 
                                       Не все корабли удало�...
 
 ? 
-[43]
+[42]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2158,7 +2124,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.298         std::cout << "\n🗑️ 
+l.241         std::cout << "\n🗑️ 
                                       " << response.substr(13) << "\n";
 ? 
 
@@ -2168,10 +2134,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.298         std::cout << "\n🗑️ 
+l.241         std::cout << "\n🗑️ 
                                       " << response.substr(13) << "\n";
 ? 
-[44]
+[43]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2179,7 +2145,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.312         std::cout << "\n✅ 
+l.255         std::cout << "\n✅ 
                                   " << response.substr(13) << "\n";
 ? 
 
@@ -2189,11 +2155,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.329         std::cout << "🎯 
+l.272         std::cout << "🎯 
                                  DEBUG: Processing invitation: " << response...
 
 ? 
-[45]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2201,9 +2166,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.348             std::cout << "  🎮 
+l.291             std::cout << "  🎮 
                                        ПРИГЛАШЕНИЕ В ИГРУ!\n";
 ? 
+[44]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2211,7 +2177,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.369         std::cout << "\n🎯 
+l.312         std::cout << "\n🎯 
                                    Противник присоединил...
 
 ? 
@@ -2222,7 +2188,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.375         std::cout << "\n🎯 
+l.318         std::cout << "\n🎯 
                                    ВАШ ХОД! " << response.substr(10) <...
 
 ? 
@@ -2233,7 +2199,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.377         std::cout << "\n🎯 
+l.320         std::cout << "\n🎯 
                                    ВАШ ХОД СНОВА! " << response.s...
 
 ? 
@@ -2244,7 +2210,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.379         std::cout << "\n💥 
+l.322         std::cout << "\n💥 
                                    ПРОТИВНИК СТРЕЛЯЕТ: " <<...
 
 ? 
@@ -2255,7 +2221,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.381         std::cout << "\n📊 
+l.324         std::cout << "\n📊 
                                    РЕЗУЛЬТАТ ВЫСТРЕЛА: " <<...
 
 ? 
@@ -2266,7 +2232,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.384         std::cout << "  🎉 
+l.327         std::cout << "  🎉 
                                    ПОБЕДА! 🎉\n";
 ? 
 
@@ -2276,7 +2242,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.384 ...std::cout << "  🎉 ПОБЕДА! 🎉\n
+l.327 ...std::cout << "  🎉 ПОБЕДА! 🎉\n
                                                   ";
 ? 
 
@@ -2286,7 +2252,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.392         std::cout << "  💀 
+l.335         std::cout << "  💀 
                                    ПОРАЖЕНИЕ 💀\n";
 ? 
 
@@ -2296,10 +2262,9 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.392 ...cout << "  💀 ПОРАЖЕНИЕ 💀\n
+l.335 ...cout << "  💀 ПОРАЖЕНИЕ 💀\n
                                                   ";
 ? 
-[46]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2307,10 +2272,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.399         std::cout << "\n✅ 
+l.342         std::cout << "\n✅ 
                                   Вы присоединились к иг�...
 
 ? 
+[45]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2318,7 +2284,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.412         std::cout << "\n🚪 
+l.355         std::cout << "\n🚪 
                                    " << response.substr(10) << "\n";
 ? 
 
@@ -2328,7 +2294,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.417         std::cout << "\n✅ 
+l.360         std::cout << "\n✅ 
                                   " << response.substr(13) << "\n";
 ? 
 
@@ -2338,7 +2304,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.433         std::cout << "\n✅ 
+l.376         std::cout << "\n✅ 
                                   " << response.substr(12) << "\n";
 ? 
 
@@ -2348,7 +2314,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.436         std::cout << "🎮 
+l.379         std::cout << "🎮 
                                  Вы вошли в игру. Начинай...
 
 ? 
@@ -2359,10 +2325,9 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.438         std::cout << "\n✅ 
+l.381         std::cout << "\n✅ 
                                   " << response.substr(15) << "\n";
 ? 
-[47]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2370,7 +2335,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.445         std::cout << "\n📊 
+l.388         std::cout << "\n📊 
                                    " << response.substr(12) << "\n";
 ? 
 
@@ -2380,7 +2345,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.448         std::cout << "\n❌ 
+l.391         std::cout << "\n❌ 
                                   " << response << "\n";
 ? 
 
@@ -2390,7 +2355,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.450         std::cout << "\n✅ 
+l.393         std::cout << "\n✅ 
                                   " << response.substr(11) << "\n";
 ? 
 
@@ -2400,9 +2365,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.452         std::cout << "\n🚪 
+l.395         std::cout << "\n🚪 
                                    " << response.substr(10) << "\n";
 ? 
+[46]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2410,11 +2376,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.476         std::cout << "  📨 
+l.418         std::cout << "  📨 
                                    АКТИВНОЕ ПРИГЛАШЕНИЕ:\n";
 
 ? 
-[48] [49]
+[47]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2422,7 +2388,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.548         std::cerr << "\n❌ 
+l.490         std::cerr << "\n❌ 
                                   Логин не может быть пус...
 
 ? 
@@ -2433,7 +2399,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.557     std::cout << "\n🔗 
+l.499     std::cout << "\n🔗 
                                Регистрация...\n";
 ? 
 
@@ -2443,11 +2409,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.559         std::cerr << "❌ 
+l.501         std::cerr << "❌ 
                                 Не удалось отправить за�...
 
 ? 
-[50]
+[48]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2455,7 +2421,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.600                     std::cout << "\n❌ 
+l.542                     std::cout << "\n❌ 
                                               Очередь перепол�...
 
 ? 
@@ -2466,10 +2432,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.607                 std::cout << "\n❌ 
+l.549                 std::cout << "\n❌ 
                                           Приглашение проиг�...
 
 ? 
+[49]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2477,7 +2444,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.618                     std::cout << "\n❌ 
+l.560                     std::cout << "\n❌ 
                                               Очередь перепол�...
 
 ? 
@@ -2488,7 +2455,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.625                 std::cout << "\n🎮 
+l.567                 std::cout << "\n🎮 
                                            Введите имя для но...
 
 ? 
@@ -2499,7 +2466,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.630                     std::cout << "\n❌ 
+l.572                     std::cout << "\n❌ 
                                               Имя игры не може�...
 
 ? 
@@ -2510,11 +2477,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.641                     std::cout << "\n❌ 
+l.583                     std::cout << "\n❌ 
                                               Очередь перепол�...
 
 ? 
-[51]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2522,7 +2488,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.648                 std::cout << "\n🎮 
+l.590                 std::cout << "\n🎮 
                                            Введите имя или ID �...
 
 ? 
@@ -2533,10 +2499,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.653                     std::cout << "\n❌ 
+l.595                     std::cout << "\n❌ 
                                               Имя/ID не может бы...
 
 ? 
+[50]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2544,7 +2511,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.664                     std::cout << "\n❌ 
+l.606                     std::cout << "\n❌ 
                                               Очередь перепол�...
 
 ? 
@@ -2555,7 +2522,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.671                 std::cout << "\n👥 
+l.613                 std::cout << "\n👥 
                                            Введите логин игр�...
 
 ? 
@@ -2566,11 +2533,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.684                     std::cout << "\n❌ 
+l.626                     std::cout << "\n❌ 
                                               Очередь перепол�...
 
 ? 
-[52]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2578,10 +2544,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.698 ...                     std::cout << "\n❌ 
+l.640 ...                     std::cout << "\n❌ 
                                                   Очередь переп�...
 
 ? 
+[51]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2589,7 +2556,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.714                 std::cout << "\n🔄 
+l.656                 std::cout << "\n🔄 
                                            Проверяем приглаш...
 
 ? 
@@ -2600,7 +2567,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.725                     std::cout << "📭 
+l.667                     std::cout << "📭 
                                              Приглашений нет\n";
 ? 
 
@@ -2610,7 +2577,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.727                     std::cout << "✅ 
+l.669                     std::cout << "✅ 
                                             Есть активное при...
 
 ? 
@@ -2621,11 +2588,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.733                 std::cout << "\n🚪 
+l.675                 std::cout << "\n🚪 
                                            Вы уверены? (да/нет...
 
 ? 
-[53]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2633,9 +2599,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.749                     std::cout << "\n👋 
+l.690                     std::cout << "\n👋 
                                                Выход...\n";
 ? 
+[52]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2643,7 +2610,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.761                     std::cout << "\n❌ 
+l.702                     std::cout << "\n❌ 
                                               Очередь перепол�...
 
 ? 
@@ -2654,7 +2621,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.771                 std::cout << "\n❌ 
+l.712                 std::cout << "\n❌ 
                                           Приглашение откло�...
 
 ? 
@@ -2665,7 +2632,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.776                 std::cout << "\n❌ 
+l.717                 std::cout << "\n❌ 
                                           Неверная команда\n";
 ? 
 
@@ -2675,10 +2642,9 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.784                 std::cout << "\n⚓ 
+l.725                 std::cout << "\n⚓ 
                                           Команда: ";
 ? 
-[54]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2686,7 +2652,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.801                     std::cout << "🔄 
+l.742                     std::cout << "🔄 
                                              Отправляем 'ready' н...
 
 ? 
@@ -2697,7 +2663,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.804                         std::cout << "\n❌ 
+l.745                         std::cout << "\n❌ 
                                                   Очередь переп�...
 
 ? 
@@ -2708,10 +2674,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.808 ...                      std::cout << "📥 
+l.749 ...                      std::cout << "📥 
                                                   Получен ответ ...
 
 ? 
+[53]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2719,7 +2686,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.811 ...                       std::cout << "❌ 
+l.752 ...                       std::cout << "❌ 
                                                   Нет ответа от �...
 
 ? 
@@ -2730,7 +2697,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.815                     std::cout << "\n🔄 
+l.756                     std::cout << "\n🔄 
                                                Запускаем автом...
 
 ? 
@@ -2741,7 +2708,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.824                         std::cout << "\n❌ 
+l.765                         std::cout << "\n❌ 
                                                   Очередь переп�...
 
 ? 
@@ -2752,11 +2719,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.836                         std::cout << "\n❌ 
+l.777                         std::cout << "\n❌ 
                                                   Неверный логи�...
 
 ? 
-[55]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2764,10 +2730,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.847                         std::cout << "\n❌ 
+l.788                         std::cout << "\n❌ 
                                                   Очередь переп�...
 
 ? 
+[54]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2775,7 +2742,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.866                     std::cout << "\n🏳️ 
+l.807                     std::cout << "\n🏳️ 
                                                   Вы вышли из иг�...
 
 ? 
@@ -2786,7 +2753,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.866                     std::cout << "\n🏳️ 
+l.807                     std::cout << "\n🏳️ 
                                                   Вы вышли из иг�...
 
 ? 
@@ -2797,11 +2764,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.875                         std::cout << "\n❌ 
+l.816                         std::cout << "\n❌ 
                                                   Очередь переп�...
 
 ? 
-[56]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
 
@@ -2809,7 +2775,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.897                     std::cout << "\n🎯 
+l.838                     std::cout << "\n🎯 
                                                Координаты выст...
 
 ? 
@@ -2820,10 +2786,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.909                     std::cout << "🔄 
+l.850                     std::cout << "🔄 
                                              Отправляем выстр...
 
 ? 
+[55]
 
 ! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
 
@@ -2831,7 +2798,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.912                         std::cout << "\n❌ 
+l.853                         std::cout << "\n❌ 
                                                   Очередь переп�...
 
 ? 
@@ -2842,7 +2809,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.916 ...                      std::cout << "📥 
+l.857 ...                      std::cout << "📥 
                                                   Ответ сервера ...
 
 ? 
@@ -2853,7 +2820,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.919 ...                       std::cout << "❌ 
+l.860 ...                       std::cout << "❌ 
                                                   Нет ответа от �...
 
 ? 
@@ -2864,7 +2831,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.929                         std::cout << "\n❌ 
+l.870                         std::cout << "\n❌ 
                                                   Очередь переп�...
 
 ? 
@@ -2875,7 +2842,85 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.942                         std::cout << "\n❌ 
+l.883                         std::cout << "\n❌ 
+                                                  Очередь переп�...
+
+? 
+
+! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.896                         std::cout << "\n❌ 
+                                                  Очередь переп�...
+
+? 
+[56]
+
+! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.906                     std::cout << "\n🏳️ 
+                                                  Вы уверены? (да...
+
+? 
+
+! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.906                     std::cout << "\n🏳️ 
+                                                  Вы уверены? (да...
+
+? 
+
+! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.922 ...                     std::cout << "\n❌ 
+                                                  Очередь переп�...
+
+? 
+
+! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.930                     std::cout << "\n⚠️ 
+                                                 Выход приравни...
+
+? 
+
+! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.930                     std::cout << "\n⚠️ 
+                                                 Выход приравни...
+
+? 
+
+! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.949 ...                     std::cout << "\n❌ 
                                                   Очередь переп�...
 
 ? 
@@ -2887,92 +2932,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.955                         std::cout << "\n❌ 
-                                                  Очередь переп�...
-
-? 
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.965                     std::cout << "\n🏳️ 
-                                                  Вы уверены? (да...
-
-? 
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.965                     std::cout << "\n🏳️ 
-                                                  Вы уверены? (да...
-
-? 
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.981 ...                     std::cout << "\n❌ 
-                                                  Очередь переп�...
-
-? 
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.989                     std::cout << "\n⚠️ 
-                                                 Выход приравни...
-
-? 
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.989                     std::cout << "\n⚠️ 
-                                                 Выход приравни...
-
-? 
-[58]
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1008 ...                    std::cout << "\n❌ 
-                                                  Очередь переп�...
-
-? 
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\lst@EC�\lst@EC�).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1015 ...                                << "❌ 
+l.956                                     << "❌ 
                                                   Нет ответа от �...
 
 ? 
-) (/home/daalginichev/OS_CP/server/Game.hpp [59] [60])
-(/home/daalginichev/OS_CP/server/Game.cpp [61] [62] [63] [64] [65] [66]
-[67] [68] [69] [70] [71] [72] [73]) (/home/daalginichev/OS_CP/server/main.cpp
-[74]) (/home/daalginichev/OS_CP/client/main.cpp)
+) (/home/daalginichev/OS_CP/server/Game.hpp [58] [59])
+(/home/daalginichev/OS_CP/server/Game.cpp [60] [61] [62] [63] [64] [65]
+[66] [67] [68] [69] [70] [71] [72]) (/home/daalginichev/OS_CP/server/main.cpp
+[73]) (/home/daalginichev/OS_CP/client/main.cpp)
 Overfull \hbox (3.87018pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 execve("./server/server",["./server/server"],0x7ffea73e20d0 
 /* 41 vars */)
@@ -3014,7 +2981,7 @@ Overfull \hbox (127.34003pt too wide) in paragraph at lines 330--330
 MAP_FIXED|MAP_DENYWRITE,3,0x9d000)
  []
 
-[75]
+
 Overfull \hbox (65.6051pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 mmap(0x7b5f05be5000,552960,PROT_READ,MAP_PRIVATE|MAP_FIXED|M
 AP_DENYWRITE,3,0x1e5000)
@@ -3026,7 +2993,7 @@ Overfull \hbox (127.34003pt too wide) in paragraph at lines 330--330
 AP_FIXED|MAP_DENYWRITE,3,0x26b000)
  []
 
-
+[74]
 Overfull \hbox (90.29907pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 mmap(0x7b5f05c7a000,12608,PROT_READ|PROT_WRITE,MAP_PRIVATE|M
 AP_FIXED|MAP_ANONYMOUS,-1,0)
@@ -3140,7 +3107,7 @@ Overfull \hbox (59.43161pt too wide) in paragraph at lines 330--330
 AP_DENYWRITE,3,0x8f000)
  []
 
-[76]
+
 Overfull \hbox (114.99304pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 mmap(0x7b5f059fe000,8192,PROT_READ|PROT_WRITE,MAP_PRIVATE|MA
 P_FIXED|MAP_DENYWRITE,3,0xe7000)
@@ -3152,7 +3119,7 @@ Overfull \hbox (65.6051pt too wide) in paragraph at lines 330--330
 S,-1,0) = 0x7b5f05c98000[] 
  []
 
-
+[75]
 Overfull \hbox (71.7786pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 mmap(NULL,12288,PROT_READ|PROT_WRITE,MAP_PRIVATE|MAP_ANONYMO
 US,-1,0) = 0x7b5f05c95000[] 
@@ -3200,7 +3167,79 @@ Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
 0,NULL,FUTEX_BITSET_MATCH_ANY)
  []
 
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (77.95209pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84000,FUTEX_WAIT,2,NULL) = -1 EAGAIN (Resourc
+e temporarily unavailable)[] 
+ []
+
+[76]
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
 [77]
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (77.95209pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84000,FUTEX_WAIT,2,NULL) = -1 EAGAIN (Resourc
+e temporarily unavailable)[] 
+ []
+
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
 Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
 0,NULL,FUTEX_BITSET_MATCH_ANY)
@@ -3219,15 +3258,9 @@ Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
  []
 
 
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
+Overfull \hbox (77.95209pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84000,FUTEX_WAIT,2,NULL) = -1 EAGAIN (Resourc
+e temporarily unavailable)[] 
  []
 
 
@@ -3237,19 +3270,13 @@ Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
  []
 
 
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
+Overfull \hbox (77.95209pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84000,FUTEX_WAIT,2,NULL) = -1 EAGAIN (Resourc
+e temporarily unavailable)[] 
  []
 
 [78]
 Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
 0,NULL,FUTEX_BITSET_MATCH_ANY)
  []
@@ -3276,12 +3303,6 @@ Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
 Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
 0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (77.95209pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84000,FUTEX_WAIT,2,NULL) = -1 EAGAIN (Resourc
-e temporarily unavailable)[] 
  []
 
 
@@ -3291,9 +3312,15 @@ Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
  []
 
 [79]
-Overfull \hbox (77.95209pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84000,FUTEX_WAIT,2,NULL) = -1 EAGAIN (Resourc
-e temporarily unavailable)[] 
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
  []
 
 
@@ -3303,9 +3330,15 @@ Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
  []
 
 
-Overfull \hbox (77.95209pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84000,FUTEX_WAIT,2,NULL) = -1 EAGAIN (Resourc
-e temporarily unavailable)[] 
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
+ []
+
+
+Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
+[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
+0,NULL,FUTEX_BITSET_MATCH_ANY)
  []
 
 
@@ -3329,76 +3362,10 @@ Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
 
 Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
 0,NULL,FUTEX_BITSET_MATCH_ANY)
  []
 
 [80]
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (77.95209pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84000,FUTEX_WAIT,2,NULL) = -1 EAGAIN (Resourc
-e temporarily unavailable)[] 
- []
-
-[81]
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84050,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
-Overfull \hbox (102.64606pt too wide) in paragraph at lines 330--330
-[]\T2B/cmtt/m/n/12 futex(0x7b5f05c84054,FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME,
-0,NULL,FUTEX_BITSET_MATCH_ANY)
- []
-
-
 Overfull \hbox (77.95209pt too wide) in paragraph at lines 330--330
 []\T2B/cmtt/m/n/12 futex(0x7b5f05c84000,FUTEX_WAIT,2,NULL) = -1 EAGAIN (Resourc
 e temporarily unavailable)[] 
@@ -3470,13 +3437,13 @@ Overfull \hbox (28.56415pt too wide) in paragraph at lines 728--728
 file or directory)[] 
  []
 
-[82]
+
 Overfull \hbox (3.87018pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 openat(AT_FDCWD,"/lib/x86_64-linux-gnu/libstdc++.so.6",O_RDO
 NLY|O_CLOEXEC)
  []
 
-
+[81]
 Overfull \hbox (34.73764pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 read(3,"\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0
 \0\0\0\0\0"...,832)
@@ -3596,13 +3563,13 @@ Overfull \hbox (90.29907pt too wide) in paragraph at lines 728--728
 AP_FIXED|MAP_ANONYMOUS,-1,0)
  []
 
-[83]
+
 Overfull \hbox (34.73764pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 read(3,"\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0
 \0\0\0\0\0"...,832)
  []
 
-
+[82]
 Overfull \hbox (3.87018pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 mmap(NULL,950296,PROT_READ,MAP_PRIVATE|MAP_DENYWRITE,3,0) = 
 0x7be7820c6000[] 
@@ -3668,7 +3635,7 @@ Overfull \hbox (324.89178pt too wide) in paragraph at lines 728--728
 \321\201\321\202\321\200\320\260\321\206\320\270\321\217...\n",32)
  []
 
-[84]
+[83]
 Overfull \hbox (158.20749pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"  \320\234\320\236\320\240\320\241\320\232\320\236\
 320\231 \320\221\320\236\320\231\n",24)
@@ -3734,13 +3701,13 @@ Overfull \hbox (127.34003pt too wide) in paragraph at lines 728--728
 70\321\207\320\275\320\260\321\217
  []
 
-[85]
+
 Overfull \hbox (158.20749pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"  \320\240\320\220\320\241\320\241\320\242\320\220\
 320\235\320\236\320\222\320\232\320\220
  []
 
-
+[84]
 Overfull \hbox (294.02432pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"  \320\244\320\276\321\200\320\274\320\260\321\202:
  \321\200\320\260\320\267\320\274\320\265\321\200,x,y"...,59)
@@ -3836,7 +3803,7 @@ Overfull \hbox (59.43161pt too wide) in paragraph at lines 728--728
 321\210\320\273\320\270
  []
 
-[86]
+[85]
 Overfull \hbox (158.20749pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"  \320\240\320\220\320\241\320\241\320\242\320\220\
 320\235\320\236\320\222\320\232\320\220
@@ -3938,13 +3905,13 @@ Overfull \hbox (164.38098pt too wide) in paragraph at lines 728--728
 \321\201\320\272\320\260\320\265\320\274
  []
 
-[87]
+
 Overfull \hbox (306.3713pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"  \320\220\320\222\320\242\320\236\320\234\320\220\
 320\242\320\230\320\247\320\225\320\241\320\232\320\220\320\257
  []
 
-
+[86]
 Overfull \hbox (47.08463pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"\320\240\320\260\320\267\320\274\320\265\321\211\32
 0\260\320\265\320\274
@@ -3992,13 +3959,13 @@ Overfull \hbox (47.08463pt too wide) in paragraph at lines 728--728
 0\260\320\265\320\274
  []
 
-[88]
+
 Overfull \hbox (47.08463pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"\320\240\320\260\320\267\320\274\320\265\321\211\32
 0\260\320\265\320\274
  []
 
-
+[87]
 Overfull \hbox (47.08463pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"\320\240\320\260\320\267\320\274\320\265\321\211\32
 0\260\320\265\320\274
@@ -4064,7 +4031,7 @@ Overfull \hbox (84.12558pt too wide) in paragraph at lines 728--728
 276\321\201\320\265\321\206
  []
 
-[89]
+
 Overfull \hbox (3.87018pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"    2 \320\273\320\270\320\275\320\272\320\276\321\
 200\320\260 (3
@@ -4082,7 +4049,7 @@ Overfull \hbox (3.87018pt too wide) in paragraph at lines 728--728
 206\320\260 (1
  []
 
-
+[88]
 Overfull \hbox (10.04367pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"  \320\232\320\276\320\274\320\260\320\275\320\264\
 321\213:\n",18)
@@ -4154,7 +4121,7 @@ Overfull \hbox (127.34003pt too wide) in paragraph at lines 728--728
 02\321\200\320\265\321\202\321\214
  []
 
-[90]
+
 Overfull \hbox (127.34003pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"  3 -\320\237\320\276\321\201\320\274\320\276\321\2
 02\321\200\320\265\321\202\321\214
@@ -4166,7 +4133,7 @@ Overfull \hbox (176.72797pt too wide) in paragraph at lines 728--728
 01 \320\270\320\263\321\200\321\213\n",28)
  []
 
-
+[89]
 Overfull \hbox (22.39066pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"  5 -\320\241\320\264\320\260\321\202\321\214\321\2
 01\321\217\n",21)
@@ -4238,7 +4205,7 @@ Overfull \hbox (10.04367pt too wide) in paragraph at lines 728--728
 321\202\320\265
  []
 
-[91]
+
 Overfull \hbox (201.42194pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"\360\237\216\257 \320\232\320\276\320\276\321\200\3
 20\264\320\270\320\275\320\260\321\202\321\213
@@ -4250,7 +4217,7 @@ Overfull \hbox (201.42194pt too wide) in paragraph at lines 728--728
 20\260\320\262\320\273\321\217\320\265\320\274
  []
 
-
+[90]
 Overfull \hbox (306.3713pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"\360\237\223\245 \320\236\321\202\320\262\320\265\3
 21\202 \321\201\320\265\321\200\320\262\320\265\321\200\320\260
@@ -4317,13 +4284,13 @@ Overfull \hbox (405.14719pt too wide) in paragraph at lines 728--728
 
  []
 
-[92]
+
 Overfull \hbox (238.46289pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"\360\237\217\263\357\270\217 \320\222\321\213 \321\
 203\320\262\320\265\321\200\320\265\320\275\321\213?
  []
 
-
+[91]
 Overfull \hbox (374.27972pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"\360\237\227\221\357\270\217 \320\230\320\263\321\2
 00\320\260 \321\203\320\264\320\260\320\273\320\265\320\275\320\260\n",32)
@@ -4389,7 +4356,7 @@ Overfull \hbox (28.56415pt too wide) in paragraph at lines 728--728
 \320\264...\n",20)
  []
 
-[93]
+
 Overfull \hbox (306.3713pt too wide) in paragraph at lines 728--728
 []\T2B/cmtt/m/n/12 write(1,"  \320\230\320\223\320\240\320\220 \320\227\320\220
 \320\222\320\225\320\240\320\250\320\225\320\235\320\220\n",30)
@@ -4401,7 +4368,7 @@ Overfull \hbox (65.6051pt too wide) in paragraph at lines 728--728
 320\276 \320\267\320\260
  []
 
-
+[92]
 Overfull \hbox (3.87018pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 execve("./client/client",["./client/client"],0x7ffdaa1cfba0 
 /* 41 vars */)
@@ -4497,7 +4464,7 @@ Overfull \hbox (114.99304pt too wide) in paragraph at lines 1126--1126
 P_FIXED|MAP_DENYWRITE,3,0x2b000)
  []
 
-[94]
+
 Overfull \hbox (59.43161pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 read(3,"\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\2
 43\2\0\0\0\0\0"...,832)
@@ -4509,7 +4476,7 @@ Overfull \hbox (65.6051pt too wide) in paragraph at lines 1126--1126
 \0\0\0\0\0\0"...,784,64)
  []
 
-
+[93]
 Overfull \hbox (65.6051pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 pread64(3,"\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0
 \0\0\0\0\0\0"...,784,64)
@@ -4593,13 +4560,13 @@ Overfull \hbox (16.21716pt too wide) in paragraph at lines 1126--1126
 LIM64_INFINITY})
  []
 
-[95]
+
 Overfull \hbox (10.04367pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 openat(AT_FDCWD,"/dev/shm/battleship_shm_v3",O_RDWR|O_NOFOLL
 OW|O_CLOEXEC) =
  []
 
-
+[94]
 Overfull \hbox (386.62671pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"  \320\224\320\236\320\221\320\240\320\236 \320\237
 \320\236\320\226\320\220\320\233\320\236\320\222\320\220\320\242\320"...,60)
@@ -4665,13 +4632,13 @@ Overfull \hbox (53.25812pt too wide) in paragraph at lines 1126--1126
 20\270\321\202\320\265
  []
 
-[96]
+
 Overfull \hbox (127.34003pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"\342\234\205 \320\237\321\203\320\261\320\273\320\2
 70\321\207\320\275\320\260\321\217
  []
 
-
+[95]
 Overfull \hbox (127.34003pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"\342\234\205 \320\237\321\203\320\261\320\273\320\2
 70\321\207\320\275\320\260\321\217
@@ -4761,7 +4728,7 @@ Overfull \hbox (133.51352pt too wide) in paragraph at lines 1126--1126
 5>-\320\277\321\200\320\270"...,79)
  []
 
-[97]
+
 Overfull \hbox (195.24844pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"    menu -\320\262\321\213\320\271\321\202\320\270 
 \320\262 \320\274\320\265\320\275\321"...,34)
@@ -4773,7 +4740,7 @@ Overfull \hbox (34.73764pt too wide) in paragraph at lines 1126--1126
 75\320\264\320\260:
  []
 
-
+[96]
 Overfull \hbox (226.1159pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"\342\234\205 \320\237\321\200\320\270\320\263\320\2
 73\320\260\321\210\320\265\320\275\320\270\320\265
@@ -4857,7 +4824,7 @@ Overfull \hbox (213.76892pt too wide) in paragraph at lines 1126--1126
 \321\202\321\200\320\265\321\202\321\214"...,42)
  []
 
-[98]
+
 Overfull \hbox (133.51352pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"    invite <\320\273\320\276\320\263\320\270\320\27
 5>-\320\277\321\200\320\270"...,79)
@@ -4869,7 +4836,7 @@ Overfull \hbox (195.24844pt too wide) in paragraph at lines 1126--1126
 \320\262 \320\274\320\265\320\275\321"...,34)
  []
 
-
+[97]
 Overfull \hbox (34.73764pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"\342\232\223 \320\232\320\276\320\274\320\260\320\2
 75\320\264\320\260:
@@ -4923,13 +4890,13 @@ Overfull \hbox (47.08463pt too wide) in paragraph at lines 1126--1126
 0\260\320\265\320\274
  []
 
-[99]
+
 Overfull \hbox (47.08463pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"\320\240\320\260\320\267\320\274\320\265\321\211\32
 0\260\320\265\320\274
  []
 
-
+[98]
 Overfull \hbox (47.08463pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"\320\240\320\260\320\267\320\274\320\265\321\211\32
 0\260\320\265\320\274
@@ -4983,7 +4950,7 @@ Overfull \hbox (263.15686pt too wide) in paragraph at lines 1126--1126
 \320\265\321\200\321\210\320\265\320\275\320\270\321\217
  []
 
-[100]
+[99]
 Overfull \hbox (158.20749pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"  \320\240\320\220\320\241\320\241\320\242\320\220\
 320\235\320\236\320\222\320\232\320\220
@@ -5085,7 +5052,7 @@ Overfull \hbox (53.25812pt too wide) in paragraph at lines 1126--1126
 21\207\320\265\320\275
  []
 
-[101]
+[100]
 Overfull \hbox (312.5448pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"  \320\230\320\223\320\240\320\220 \320\222 \320\23
 7\320\240\320\236\320\246\320\225\320\241\320\241\320\225\n",31)
@@ -5145,7 +5112,7 @@ Overfull \hbox (312.5448pt too wide) in paragraph at lines 1126--1126
 7\320\240\320\236\320\246\320\225\320\241\320\241\320\225\n",31)
  []
 
-[102]
+
 Overfull \hbox (306.3713pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"  1 -\320\241\320\264\320\265\320\273\320\260\321\2
 02\321\214 \320\262\321\213\321\201\321\202\321\200\320"...,36)
@@ -5157,7 +5124,7 @@ Overfull \hbox (127.34003pt too wide) in paragraph at lines 1126--1126
 02\321\200\320\265\321\202\321\214
  []
 
-
+[101]
 Overfull \hbox (127.34003pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"  3 -\320\237\320\276\321\201\320\274\320\276\321\2
 02\321\200\320\265\321\202\321\214
@@ -5229,7 +5196,7 @@ Overfull \hbox (127.34003pt too wide) in paragraph at lines 1126--1126
 02\321\200\320\265\321\202\321\214
  []
 
-[103]
+
 Overfull \hbox (176.72797pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"  4 -\320\241\321\202\320\260\321\202\321\203\321\2
 01 \320\270\320\263\321\200\321\213\n",28)
@@ -5247,7 +5214,7 @@ Overfull \hbox (182.90146pt too wide) in paragraph at lines 1126--1126
 262 \320\274\320\265\320\275\321\216\n",29)
  []
 
-
+[102]
 Overfull \hbox (10.04367pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"  \320\222\321\213\320\261\320\265\321\200\320\270\
 321\202\320\265
@@ -5308,7 +5275,7 @@ Overfull \hbox (324.89178pt too wide) in paragraph at lines 1126--1126
 65\320\264\320\270\320\275\320\270\321\202\321\214\321\201"...,47)
  []
 
-[104]
+
 Overfull \hbox (127.34003pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"  4 -\320\237\321\200\320\270\320\263\320\273\320\2
 60\321\201\320\270\321\202\321\214
@@ -5320,7 +5287,7 @@ Overfull \hbox (77.95209pt too wide) in paragraph at lines 1126--1126
 00\320\270\321\202\321\214
  []
 
-
+[103]
 Overfull \hbox (10.04367pt too wide) in paragraph at lines 1126--1126
 []\T2B/cmtt/m/n/12 write(1,"  \320\222\321\213\320\261\320\265\321\200\320\270\
 321\202\320\265
@@ -5350,7 +5317,7 @@ Overfull \hbox (65.6051pt too wide) in paragraph at lines 1126--1126
 320\276 \320\267\320\260
  []
 
-) [105] (./report.aux
+) [104] (./report.aux
 LaTeX Font Info:    Trying to load font information for T1+Tempora-TLF on input
  line 8.
 
@@ -5369,10 +5336,10 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 289E1AFBB7B4DA88204F478565F32D13;4380.
  ) 
 Here is how much of TeX's memory you used:
- 23359 strings out of 474222
- 359770 string characters out of 5748733
- 2590975 words of memory out of 5000000
- 42063 multiletter control sequences out of 15000+600000
+ 23298 strings out of 474222
+ 358791 string characters out of 5748733
+ 2662975 words of memory out of 5000000
+ 42051 multiletter control sequences out of 15000+600000
  581266 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,7n,109p,839b,2533s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -5381,10 +5348,10 @@ usr/share/texlive/texmf-dist/fonts/type1/public/tempora/Tempora-Regular.pfb></u
 sr/share/texmf/fonts/type1/public/cm-super/sfit1095.pfb></usr/share/texmf/fonts
 /type1/public/cm-super/sftt1095.pfb></usr/share/texmf/fonts/type1/public/cm-sup
 er/sftt1200.pfb>
-Output written on report.pdf (106 pages, 468706 bytes).
+Output written on report.pdf (105 pages, 463565 bytes).
 PDF statistics:
- 4323 PDF objects out of 5155 (max. 8388607)
- 4162 compressed objects within 42 object streams
- 3194 named destinations out of 3580 (max. 500000)
+ 4262 PDF objects out of 4296 (max. 8388607)
+ 4102 compressed objects within 42 object streams
+ 3145 named destinations out of 3580 (max. 500000)
  185 words of extra memory for PDF output out of 10000 (max. 10000000)
 

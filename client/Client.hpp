@@ -40,7 +40,6 @@ private:
     void clear_response_buffer();
 
     void auto_place_ships();
-    bool try_place_ship_auto(uint8_t size, std::vector<std::pair<uint8_t, uint8_t>>& placed_positions);
     bool is_valid_position(uint8_t x, uint8_t y, uint8_t size, bool horizontal, const std::vector<std::pair<uint8_t, uint8_t>>& placed_positions);
     void force_clear_response();
     bool has_only_one_player() const;
