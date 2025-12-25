@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.2)  25 DEC 2025 13:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.2)  25 DEC 2025 14:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -5332,14 +5332,21 @@ LaTeX Font Info:    Font shape `T1/Tempora-TLF/m/n' will be
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 289E1AFBB7B4DA88204F478565F32D13;4380.
+
+
+Package rerunfilecheck Warning: File `report.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `report.out':
+(rerunfilecheck)             Before: CC0A0943DE8399093613423E7032664E;3656
+(rerunfilecheck)             After:  289E1AFBB7B4DA88204F478565F32D13;4380.
  ) 
 Here is how much of TeX's memory you used:
- 23298 strings out of 474222
- 358791 string characters out of 5748733
+ 23295 strings out of 474222
+ 358752 string characters out of 5748733
  2662975 words of memory out of 5000000
- 42051 multiletter control sequences out of 15000+600000
+ 42048 multiletter control sequences out of 15000+600000
  581266 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,7n,109p,839b,2533s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -5348,10 +5355,10 @@ usr/share/texlive/texmf-dist/fonts/type1/public/tempora/Tempora-Regular.pfb></u
 sr/share/texmf/fonts/type1/public/cm-super/sfit1095.pfb></usr/share/texmf/fonts
 /type1/public/cm-super/sftt1095.pfb></usr/share/texmf/fonts/type1/public/cm-sup
 er/sftt1200.pfb>
-Output written on report.pdf (105 pages, 463565 bytes).
+Output written on report.pdf (105 pages, 463189 bytes).
 PDF statistics:
- 4262 PDF objects out of 4296 (max. 8388607)
- 4102 compressed objects within 42 object streams
+ 4252 PDF objects out of 4296 (max. 8388607)
+ 4093 compressed objects within 41 object streams
  3145 named destinations out of 3580 (max. 500000)
- 185 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 161 words of extra memory for PDF output out of 10000 (max. 10000000)
 
